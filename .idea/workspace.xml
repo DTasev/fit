@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="56d4d9eb-f078-41a2-a6de-bb3ed43db0f4" name="Default" comment="" />
+    <list default="true" id="56d4d9eb-f078-41a2-a6de-bb3ed43db0f4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/today/templates/today/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/today/templates/today/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/today/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/today/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/today/views/complete.py" beforeDir="false" afterPath="$PROJECT_DIR$/today/views/complete.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +17,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/today/templates/today/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="64">
-                  <caret line="4" column="102" selection-start-line="4" selection-start-column="102" selection-end-line="4" selection-end-column="102" />
+                <state relative-caret-position="415">
+                  <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
                   <folding>
                     <element signature="e#431#475#0#HTML" expanded="true" />
                     <element signature="e#685#703#0#HTML" expanded="true" />
@@ -31,12 +35,36 @@
             </entry>
           </file>
           <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Fit/urls.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="352">
+                  <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+                  <folding>
+                    <element signature="e#627#659#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/today/urls.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="160">
-                  <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+                <state relative-caret-position="192">
+                  <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="complete.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/today/views/complete.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="128">
+                  <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+                  <folding>
+                    <element signature="e#0#37#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -45,17 +73,17 @@
           <file leaf-file-name="base_generic.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/base_generic.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
-                  <caret line="19" selection-start-line="19" selection-end-line="19" />
+                <state relative-caret-position="448">
+                  <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="index.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/today/views/index.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="176">
-                  <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+                <state relative-caret-position="208">
+                  <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
                   </folding>
@@ -104,24 +132,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="128">
                   <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="addclass.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/today/templatetags/addclass.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="176">
-                  <caret line="11" lean-forward="true" selection-end-line="11" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="prettify.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/today/templatetags/prettify.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="15" lean-forward="true" selection-end-line="15" />
                 </state>
               </provider>
             </entry>
@@ -178,16 +188,16 @@
         <option value="$PROJECT_DIR$/templates/base_generic.html" />
         <option value="$PROJECT_DIR$/today/templates/today/history.html" />
         <option value="$PROJECT_DIR$/today/views/create.py" />
-        <option value="$PROJECT_DIR$/today/views/complete.py" />
-        <option value="$PROJECT_DIR$/today/urls.py" />
         <option value="$PROJECT_DIR$/today/views/sets.py" />
         <option value="$PROJECT_DIR$/today/templatetags/addclass.py" />
         <option value="$PROJECT_DIR$/today/templatetags/enumerate.py" />
         <option value="$PROJECT_DIR$/workout/models.py" />
-        <option value="$PROJECT_DIR$/today/templates/today/index.html" />
         <option value="$PROJECT_DIR$/today/templates/today/sets.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/today/views/index.py" />
+        <option value="$PROJECT_DIR$/today/urls.py" />
+        <option value="$PROJECT_DIR$/today/views/complete.py" />
+        <option value="$PROJECT_DIR$/today/templates/today/index.html" />
       </list>
     </option>
   </component>
@@ -219,66 +229,23 @@
             <path>
               <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
               <item name="Fit" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
+              <item name="Fit" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
               <item name="Fit" type="462c0819:PsiDirectoryNode" />
               <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Fit" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Fit" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Fit" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Fit" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Fit" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Fit" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="templatetags" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Fit" type="462c0819:PsiDirectoryNode" />
-              <item name="today" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
               <item name="Fit" type="462c0819:PsiDirectoryNode" />
               <item name="workout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Fit" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Fit" type="462c0819:PsiDirectoryNode" />
+              <item name="workout" type="462c0819:PsiDirectoryNode" />
+              <item name="fixtures" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -385,6 +352,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="django-line">
+          <url>file://$PROJECT_DIR$/today/templates/today/index.html</url>
+          <line>2</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -392,7 +366,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="23" />
+      <option name="time" value="25" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -475,16 +449,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fit/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
-          <folding>
-            <element signature="e#627#659#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/registration/signup.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -541,16 +505,6 @@
     <entry file="file://$PROJECT_DIR$/today/static/today/css/bootstrap.min.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/today/views/complete.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/today/templates/today/history.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -589,6 +543,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/today/templates/today/sets.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+          <folding>
+            <element signature="e#336#355#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://W:/Apps/miniconda3/Lib/site-packages/django/urls/conf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://W:/Apps/miniconda3/Lib/site-packages/django/views/generic/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workout/fixtures/exercises.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="20" column="51" lean-forward="true" selection-start-line="20" selection-start-column="51" selection-end-line="20" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Fit/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+          <folding>
+            <element signature="e#627#659#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base_generic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/workout/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="381">
@@ -609,27 +618,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/today/views/index.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+        <state relative-caret-position="208">
+          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/today/templates/today/sets.html">
+    <entry file="file://$PROJECT_DIR$/today/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+        <state relative-caret-position="192">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
           <folding>
-            <element signature="e#336#355#0#HTML" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/today/views/complete.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/today/templates/today/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="4" column="102" selection-start-line="4" selection-start-column="102" selection-end-line="4" selection-end-column="102" />
+        <state relative-caret-position="415">
+          <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
           <folding>
             <element signature="e#431#475#0#HTML" expanded="true" />
             <element signature="e#685#703#0#HTML" expanded="true" />
@@ -637,40 +659,6 @@
             <element signature="e#947#1011#0#HTML" expanded="true" />
             <element signature="e#1356#1375#0#HTML" expanded="true" />
             <element signature="e#1472#1502#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://W:/Apps/miniconda3/Lib/site-packages/django/views/generic/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/today/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base_generic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/today/views/index.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
