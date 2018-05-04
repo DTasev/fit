@@ -10,7 +10,8 @@ class IndexView(generic.ListView):
     template_name = 'today/index.html'
 
     def get_queryset(self):
-        return Workout.objects.filter(user_id=self.request.user, date=datetime.date.today()).first()
+        if self.request.user.is_authenticated:
+            return Workout.objects.filter(user_id=self.request.user, date=datetime.date.today()).first()
 
 
 class HistoryView(generic.ListView):
