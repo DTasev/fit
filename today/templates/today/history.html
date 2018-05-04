@@ -1,0 +1,45 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <div class="mt-2 mt-lg-5 mx-2">
+        {% for w in workout_list %}
+            <div class="card my-3">
+                <div class="card-header">
+                    {{ w.date }} - {{ w.primary_muscle_group }} and {{ w.secondary_muscle_group }}
+                </div>
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Primary</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for p in w.primary %}
+                                <li class="list-group-item">{{ p }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="card" style="margin-top: 0.3rem">
+                        <div class="card-header">
+                            <h5>Secondary</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for p in w.secondary %}
+                                <li class="list-group-item">{{ p }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    `
+                </div>
+            </div>
+        {% endfor %}
+        {#        <form action="{% url 'today:complete' %}" method="post">#}
+        {#            {% csrf_token %}#}
+        {#            {% if object_list.completed %}#}
+        {#                <button class="btn btn-dark btn-block">Remove Completion</button>#}
+        {#            {% else %}#}
+        {#                <button class="btn btn-dark btn-block">Complete Workout</button>#}
+        {#            {% endif %}#}
+        {#            <input type="hidden" name="workout" value="{{ object_list.id }}">#}
+        {#        </form>#}
+    </div>
+{% endblock %}

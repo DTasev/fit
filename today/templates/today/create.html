@@ -1,0 +1,38 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <div class="card my-3">
+        <form method="post" action="{% url 'today:create' %}">
+            {% csrf_token %}
+
+            <label for="primary">Primary muscle group
+                <select name="primary">
+                    <option>Chest</option>
+                    <option>Back</option>
+                    <option>Arms</option>
+                    <option>Shoulders</option>
+                    <option>Legs</option>
+                </select>
+            </label>
+            <label> Exercise count
+                <input type="number" value="4" name="primary-count">
+            </label>
+            <br>
+            <label for="secondary">Secondary muscle group
+                <select name="secondary">
+                    <option>Chest</option>
+                    <option>Back</option>
+                    <option>Arms</option>
+                    <option>Shoulders</option>
+                    <option>Legs</option>
+                </select>
+            </label>
+            <label> Exercise count
+                <input type="number" value="2" name="secondary-count">
+            </label>
+            <input type="submit" value="Generate" class="btn btn-outline-dark btn-block"
+                   style="width: 100%"/>
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </form>
+    </div>
+{% endblock %}

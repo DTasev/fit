@@ -1,0 +1,4 @@
+fit_static
+db.sqlite3
+**/__pycache__
+*.pyc

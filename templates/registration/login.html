@@ -1,0 +1,44 @@
+{% extends "base_generic.html" %}
+{% load addclass %}
+
+{% block bypass_auth %}
+    {% if form.errors %}
+        <div class="w3-border w3-border-red" style="margin: 16px">
+            <div class="w3-padding-16 w3-center">SELECT * FROM users WHERE username={{ form.username.value }};
+                returned NULL.<br>Please try again.
+            </div>
+        </div>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form class="dw-hmargin-16" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <div class="input-group">
+            {{ form.username.label }}
+            {{ form.username|addclass:"form-control ml-2" }}
+        </div>
+        <div class="input-group">
+            {{ form.password.label }}
+            {{ form.password|addclass:"form-control ml-2" }}
+        </div>
+
+        <div class="w3-center" style="padding-top: 16px;">
+            <input type="submit" value="Login" class="btn btn-outline-dark btn-block"
+                   style="width: 100%"/>
+            <a class="btn btn-outline-dark btn-block" href="{% url 'signup' %}" style="width: 100%">Register</a>
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </div>
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    {#<p><a href="{% url 'password_reset' %}">Lost password?</a></p>#}
+{% endblock %}

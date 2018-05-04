@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{#{% load tag_filters %}#}
+{#{% block title %}#}
+{#    Registration#}
+{#{% endblock %}#}
+{% block bypass_auth %}
+    <h2 class="w3-center">Sign up</h2>
+    <form method="post" class="w3-margin">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-outline-dark btn-block">Sign up</button>
+        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-block">Back</a>
+    </form>
+{% endblock %}

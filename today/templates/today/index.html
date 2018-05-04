@@ -1,0 +1,53 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <div class="mt-2 mt-lg-5 mx-2">
+        <a href="{% url 'today:create' %}" class="btn btn-outline-dark btn-block">Generate New Workout</a>
+
+        <div class="card-body my-3
+{% if object_list.completed %}
+border border-success
+{% endif %}
+">
+            <p class="lead">Today's Workout:</p>
+            <hr>
+            <div class="card mx-auto" style="width: 18rem;">
+                <div class="card-header">
+                    <h5>Primary</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for p in object_list.primary %}
+                        <li class="list-group-item" style="padding: 0;">
+                            <a href="{% url 'today:add_set' p.id %}" class="d-block text-dark"
+                               style="padding: 1rem 1.25rem;">
+                                {{ p }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card mx-auto " style="width: 18rem; margin-top: 0.3rem">
+                <div class="card-header">
+                    <h5>Secondary</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for p in object_list.secondary %}
+                        <li class="list-group-item" style="padding: 0;">
+                            <a href="{% url 'today:add_set' p.id %}" class="d-block text-dark"
+                               style="padding: 1rem 1.25rem;">
+                                {{ p }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <form action="{% url 'today:complete' %}" method="post">
+            {% csrf_token %}
+            {% if object_list.completed %}
+                <button class="btn btn-dark btn-block">Remove Completion</button>
+            {% else %}
+                <button class="btn btn-dark btn-block">Complete Workout</button>
+            {% endif %}
+            <input type="hidden" name="workout" value="{{ object_list.id }}">
+        </form>
+    </div>
+{% endblock %}
