@@ -1,5 +1,6 @@
 import datetime
 
+from django.urls import reverse_lazy
 from django.views import generic
 
 from workout.models import Workout
@@ -20,3 +21,8 @@ class HistoryView(generic.ListView):
 
     def get_queryset(self):
         return Workout.objects.filter(user_id=self.request.user)
+
+
+class DeleteView(generic.DeleteView):
+    model = Workout
+    success_url = reverse_lazy('today:history')

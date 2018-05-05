@@ -3,9 +3,24 @@
 {% block content %}
     <div class="mt-2 mt-lg-5 mx-2">
         {% for w in workout_list %}
-            <div class="card my-3">
+            <div class="card my-3
+{% if w.completed %}
+border border-success
+{% endif %}">
                 <div class="card-header">
                     {{ w.date }} - {{ w.primary_muscle_group }} and {{ w.secondary_muscle_group }}
+                    {% if w.completed %}
+                        - Completed!
+                    {% endif %}
+                    <div class="d-inline-block float-right">
+                        <form method="post" action="{% url 'today:delete' w.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-dark"
+                                    onclick="return confirm('Are you sure you want to delete the workout? This is NOT reversible.')">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="card">
