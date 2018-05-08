@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             name='ExerciseSet',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reps', models.FloatField()),
+                ('reps', models.IntegerField()),
                 ('kgs', models.FloatField()),
             ],
         ),
