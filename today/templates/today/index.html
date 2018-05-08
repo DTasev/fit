@@ -22,7 +22,7 @@ border border-success
                     <ul class="list-group list-group-flush">
                         {% for p in object_list.primary %}
                             <li class="list-group-item" style="padding: 0;">
-                                <a href="{% url 'today:add_set' p.id %}" class="d-block text-dark"
+                                <a href="{% url 'today:sets:add_set' p.id %}" class="d-block text-dark"
                                    style="padding: 1rem 1.25rem;">
                                     {{ p }}</a>
                             </li>
@@ -37,7 +37,7 @@ border border-success
                         <ul class="list-group list-group-flush">
                             {% for p in object_list.secondary %}
                                 <li class="list-group-item" style="padding: 0;">
-                                    <a href="{% url 'today:add_set' p.id %}" class="d-block text-dark"
+                                    <a href="{% url 'today:sets:add_set' p.id %}" class="d-block text-dark"
                                        style="padding: 1rem 1.25rem;">
                                         {{ p }}</a>
                                 </li>

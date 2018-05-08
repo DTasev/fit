@@ -75,6 +75,7 @@ if HOST.DEVELOPMENT:
 # Application definition
 
 INSTALLED_APPS = [
+    'sets.apps.SetsConfig',
     'today.apps.TodayConfig',
     'workout.apps.WorkoutConfig',
     'rest_framework',

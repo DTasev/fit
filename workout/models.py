@@ -31,11 +31,13 @@ class WorkoutExercise(models.Model):
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     # format: "30x12|30x10"
-    sets = models.TextField(default="")
+    old_sets = models.TextField(default="")
 
     def __str__(self):
         return str(self.exercise)
 
-    def sets_list(self):
-        if self.sets:
-            return self.sets.split(SPECIAL_EXERCISES_JOIN_CHARACTER)
+
+class ExerciseSet(models.Model):
+    workout_exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, related_name="sets")
+    reps = models.IntegerField()
+    kgs = models.IntegerField()

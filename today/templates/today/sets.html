@@ -4,38 +4,48 @@
     <div class="card my-3">
         <h2 class="lead">{{ exercise }}</h2>
 
-        {% for i, set in exercise.sets_list|enumerate %}
-            <p>{{ i }} - {{ set }}</p>
-        {% endfor %}
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Set</th>
+                <th>KGs</th>
+                <th>Reps</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i, set in exercise.sets.all|enumerate %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ set.kgs }}</td>
+                    <td>{{ set.reps }}</td>
+                    <td><a class="btn btn-outline-dark" href="{% url 'today:sets:edit_set' set.pk %}">Edit</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
         <div class="">
-{#            <form method="post" action="{% url 'today:repeat_set' exercise.id %}" class="pt-3 d-inline-block">#}
-{#                {% csrf_token %}#}
-{#                <input type="submit" value="Same KGs, +2 reps" class="btn btn-outline-dark d-inline-block"/>#}
-{#            </form>#}
-            <form method="post" action="{% url 'today:repeat_set' exercise.id %}" class="pt-3">
+            <form method="post" action="{% url 'today:sets:repeat_set' exercise.id %}" class="pt-3">
                 {% csrf_token %}
 
-                <input type="submit" value="Repeat Last Set" class="btn btn-outline-dark btn-block"/>
+                <input type="submit" value="Repeat Last" class="btn btn-outline-dark btn-block"/>
             </form>
-{#            <form method="post" action="{% url 'today:repeat_set' exercise.id %}" class="pt-3 d-inline-block">#}
-{#                {% csrf_token %}#}
-{#                <input type="submit" value="Same Reps, +5 KGs" class="btn btn-outline-dark d-inline-block"/>#}
-{#            </form>#}
+
         </div>
-        <form method="post" action="{% url 'today:del_set' exercise.id %}" class="py-3">
+        <form method="post" action="{% url 'today:sets:del_set' exercise.id %}" class="py-3">
             {% csrf_token %}
 
-            <input type="submit" value="Remove Set" class="btn btn-outline-dark btn-block"
+            <input type="submit" value="Remove Last" class="btn btn-outline-dark btn-block"
                    style="width: 100%"/>
         </form>
-        <form method="post" action="{% url 'today:add_set' exercise.id %}">
+        <form method="post" action="{% url 'today:sets:add_set' exercise.id %}">
             {% csrf_token %}
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">KGs</span>
                 </div>
-                <input type="number" step="0.5" class="form-control" placeholder="e.g. 30" aria-label="Username"
-                       aria-describedby="basic-addon1" name="kgs" value="{{ prev_kgs_value }}">
+                <input type="number" step="0.5" class="form-control" placeholder="e.g. 30" name="kgs" min="0"
+                       value="{{ prev_kgs_value }}">
             </div>
             {% if kgs_error %}
                 <div class="btn-danger text-white p-2 m-2">{{ kgs_error }}</div>
@@ -44,14 +54,14 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Reps</span>
                 </div>
-                <input type="number" class="form-control" placeholder="e.g. 12" aria-label="Username"
-                       aria-describedby="basic-addon1" name="reps" value="{{ prev_reps_value }}">
+                <input type="number" class="form-control" placeholder="e.g. 12" name="reps" min="0"
+                       value="{{ prev_reps_value }}">
             </div>
             {% if reps_error %}
                 <div class="btn-danger text-white p-2 m-2">{{ reps_error }}</div>
             {% endif %}
 
-            <input type="submit" value="Add Set" class="btn btn-outline-dark btn-block"
+            <input type="submit" value="Add" class="btn btn-outline-dark btn-block"
                    style="width: 100%"/>
             <input type="hidden" name="next" value="{{ next }}"/>
         </form>
