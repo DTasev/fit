@@ -7,10 +7,25 @@
         {% for i, set in exercise.sets_list|enumerate %}
             <p>{{ i }} - {{ set }}</p>
         {% endfor %}
-        <form method="post" action="{% url 'today:del_set' exercise.id %}" class="p-3">
+        <div class="">
+{#            <form method="post" action="{% url 'today:repeat_set' exercise.id %}" class="pt-3 d-inline-block">#}
+{#                {% csrf_token %}#}
+{#                <input type="submit" value="Same KGs, +2 reps" class="btn btn-outline-dark d-inline-block"/>#}
+{#            </form>#}
+            <form method="post" action="{% url 'today:repeat_set' exercise.id %}" class="pt-3">
+                {% csrf_token %}
+
+                <input type="submit" value="Repeat Last Set" class="btn btn-outline-dark btn-block"/>
+            </form>
+{#            <form method="post" action="{% url 'today:repeat_set' exercise.id %}" class="pt-3 d-inline-block">#}
+{#                {% csrf_token %}#}
+{#                <input type="submit" value="Same Reps, +5 KGs" class="btn btn-outline-dark d-inline-block"/>#}
+{#            </form>#}
+        </div>
+        <form method="post" action="{% url 'today:del_set' exercise.id %}" class="py-3">
             {% csrf_token %}
 
-            <input type="submit" value="Remove set" class="btn btn-outline-dark btn-block"
+            <input type="submit" value="Remove Set" class="btn btn-outline-dark btn-block"
                    style="width: 100%"/>
         </form>
         <form method="post" action="{% url 'today:add_set' exercise.id %}">
@@ -36,7 +51,7 @@
                 <div class="btn-danger text-white p-2 m-2">{{ reps_error }}</div>
             {% endif %}
 
-            <input type="submit" value="Add set" class="btn btn-outline-dark btn-block"
+            <input type="submit" value="Add Set" class="btn btn-outline-dark btn-block"
                    style="width: 100%"/>
             <input type="hidden" name="next" value="{{ next }}"/>
         </form>
