@@ -2,7 +2,9 @@
 
 {% block content %}
     <div class="mt-2 mt-lg-5 mx-2">
-        <a href="{% url 'today:create' %}" class="btn btn-outline-dark btn-block">Generate New Workout</a>
+        {% if not object_list.completed %}
+            <a href="{% url 'today:create' %}" class="btn btn-outline-dark btn-block">Generate New Workout</a>
+        {% endif %}
 
         {% if object_list %}
 
@@ -27,20 +29,22 @@ border border-success
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="card mx-auto " style="width: 18rem; margin-top: 0.3rem">
-                    <div class="card-header">
-                        <h5>Secondary</h5>
+                {% if object_list.secondary %}
+                    <div class="card mx-auto " style="width: 18rem; margin-top: 0.3rem">
+                        <div class="card-header">
+                            <h5>Secondary</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for p in object_list.secondary %}
+                                <li class="list-group-item" style="padding: 0;">
+                                    <a href="{% url 'today:add_set' p.id %}" class="d-block text-dark"
+                                       style="padding: 1rem 1.25rem;">
+                                        {{ p }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        {% for p in object_list.secondary %}
-                            <li class="list-group-item" style="padding: 0;">
-                                <a href="{% url 'today:add_set' p.id %}" class="d-block text-dark"
-                                   style="padding: 1rem 1.25rem;">
-                                    {{ p }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                {% endif %}
             </div>
             <form action="{% url 'today:complete' object_list.id %}" method="post">
                 {% csrf_token %}
