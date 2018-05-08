@@ -39,5 +39,17 @@ class WorkoutExercise(models.Model):
 
 class ExerciseSet(models.Model):
     workout_exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, related_name="sets")
-    reps = models.IntegerField()
-    kgs = models.IntegerField()
+    reps = models.FloatField()
+    kgs = models.FloatField()
+
+
+def split_old_sets(apps, schema_editor):
+    WorkoutExercise = apps.get_model('workout', 'WorkoutExercise')
+    ExerciseSet = apps.get_model('workout', 'ExerciseSet')
+
+    for w in WorkoutExercise.objects.all():
+        if w.old_sets != "":
+            for set in w.old_sets.split(SPECIAL_EXERCISES_JOIN_CHARACTER):
+                # this gives back a list [<kgs>, <reps>]
+                kgs_and_reps = set.split("x")
+                ExerciseSet.objects.create(workout_exercise=w, kgs=float(kgs_and_reps[0]), reps=float(kgs_and_reps[1]))
