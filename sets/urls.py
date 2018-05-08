@@ -1,8 +1,5 @@
 from django.urls import path
 
-from today.views.create import create_workout
-from today.views.index import IndexView, HistoryView, DeleteView
-from today.views.complete import complete_workout
 from sets.views import add_set, del_set, repeat_set, EditSet
 
 app_name = 'sets'

@@ -21,6 +21,7 @@ def get_exercises(muscle_group):
         return muscle_group
 
 
+
 def create_workout(request):
     if request.method == "GET":
         return render(template_name="today/create.html", request=request)

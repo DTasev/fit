@@ -12,6 +12,7 @@ border border-success
                     {% if w.completed %}
                         - Completed!
                     {% endif %}
+                    {{ w.duration }}
                     <div class="d-inline-block float-right">
                         <form method="post" action="{% url 'today:delete' w.id %}">
                             {% csrf_token %}

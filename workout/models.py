@@ -12,11 +12,21 @@ class Workout(models.Model):
     secondary_muscle_group = models.CharField(max_length=50)
     completed = models.BooleanField("Completed", default=False)
 
+    start_time = models.DateTimeField("Start time of Workout", null=True, default=None)
+    end_time = models.DateTimeField("End time of Workout", null=True, default=None)
+
     def primary(self):
         return self.workoutexercise_set.filter(exercise__muscle_group=self.primary_muscle_group)
 
     def secondary(self):
         return self.workoutexercise_set.filter(exercise__muscle_group=self.secondary_muscle_group)
+
+    def duration(self):
+        if not self.start_time:
+            return ""
+        if not self.end_time:
+            return "Ongoing"
+        return self.end_time - self.start_time
 
 
 class Exercise(models.Model):
