@@ -1,9 +1,7 @@
 import datetime
 
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse
-
-from django.views.generic.edit import UpdateView
 from django.views.generic.base import View
 from django.views.generic.detail import SingleObjectMixin
 
