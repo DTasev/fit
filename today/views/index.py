@@ -12,7 +12,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Workout.objects.filter(user_id=self.request.user, date=datetime.date.today()).first()
+            return Workout.objects.get(user_id=self.request.user, date=datetime.date.today())
 
 
 class HistoryView(generic.ListView):

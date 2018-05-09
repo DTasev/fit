@@ -1,7 +1,7 @@
-from django import views
 from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.views.generic.edit import UpdateView
+
 from workout.models import WorkoutExercise, ExerciseSet
 
 

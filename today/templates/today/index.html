@@ -4,18 +4,20 @@
     <div class="mt-2 mt-lg-5 mx-2">
         {% if not object_list.completed %}
             <a href="{% url 'today:create' %}" class="btn btn-outline-dark btn-block mb-3">Generate New Workout</a>
-            {% if not object_list.start_time %}
-                <form action="{% url 'today:start' object_list.pk %}" method="post">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-dark btn-block">Start Workout</button>
-                </form>
-            {% else %}
-                <p>Workout started at {{ object_list.start_time }}</p>
+
+            {% if object_list %}
+                {% if not object_list.start_time %}
+                    <form action="{% url 'today:start' object_list.pk %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-dark btn-block">Start Workout</button>
+                    </form>
+                {% else %}
+                    <p>Workout started at {{ object_list.start_time }}</p>
+                {% endif %}
             {% endif %}
         {% endif %}
 
         {% if object_list %}
-
             <div class="card-body my-3
 {% if object_list.completed %}
 border border-success
