@@ -26,7 +26,10 @@ class Workout(models.Model):
             return ""
         if not self.end_time:
             return "Ongoing"
-        return self.end_time - self.start_time
+        return "Duration: " + str(self.end_time - self.start_time)[:7]
+
+    class Meta:
+        ordering = ["-date"]
 
 
 class Exercise(models.Model):
