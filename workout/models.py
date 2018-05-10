@@ -55,6 +55,14 @@ class WorkoutExercise(models.Model):
     def __str__(self):
         return str(self.exercise)
 
+    def sets_string(self):
+        sets_string = ""
+        for set in self.sets.all():
+            sets_string += " {}kg x {},".format(set.kgs, set.reps)
+
+        # removes the trailing coma
+        return sets_string[:-1]
+
 
 class ExerciseSet(models.Model):
     workout_exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, related_name="sets")

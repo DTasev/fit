@@ -30,7 +30,7 @@ border border-success
                         </div>
                         <ul class="list-group list-group-flush">
                             {% for p in w.primary %}
-                                <li class="list-group-item">{{ p }}</li>
+                                <li class="list-group-item">{{ p }} {{ p.sets_string }}</li>
                             {% endfor %}
                         </ul>
                     </div>
