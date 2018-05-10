@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 SPECIAL_EXERCISES_JOIN_CHARACTER = "|"
 
@@ -25,7 +26,9 @@ class Workout(models.Model):
         if not self.start_time:
             return ""
         if not self.end_time:
-            return "Ongoing"
+            # timezone.now() has the TZ of the server, not the client
+            # and this doesnt show the correct duration
+            return timezone.now() - self.start_time
         return "Duration: " + str(self.end_time - self.start_time)[:7]
 
     class Meta:

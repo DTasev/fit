@@ -1,7 +1,6 @@
-import datetime
-
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils import timezone
 from django.views.generic.base import View
 from django.views.generic.detail import SingleObjectMixin
 
@@ -13,6 +12,6 @@ class StartWorkout(SingleObjectMixin, View):
 
     def post(self, request, *args, **kwargs):
         w = self.get_object()
-        w.start_time = datetime.datetime.now()
+        w.start_time = timezone.now()
         w.save()
         return redirect(reverse('today:index'))
