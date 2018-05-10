@@ -16,6 +16,9 @@
                     {% localtime on %}
                         <p>Workout started at {{ object_list.start_time }}</p>
                     {% endlocaltime %}
+                    {% localtime off %}
+                        <p>Workout started at {{ object_list.start_time }}</p>
+                    {% endlocaltime %}
                 {% endif %}
             {% endif %}
         {% endif %}
