@@ -58,10 +58,36 @@ class WorkoutExercise(models.Model):
     def sets_string(self):
         sets_string = ""
         for set in self.sets.all():
-            sets_string += " {}kg x {},".format(set.kgs, set.reps)
+            sets_string += " {} KG x {} reps\n".format(set.kgs, set.reps)
 
         # removes the trailing coma
         return sets_string[:-1]
+
+    def sets_js_array(self):
+        sets_string = "["
+        for set in self.sets.all():
+            sets_string += '{{ "kgs": {}, "reps": {} }},'.format(set.kgs, set.reps)
+
+        # removes the trailing coma
+        return sets_string + "]"
+
+    def sets_table(self):
+        sets_table = """
+        <table class="table table-sm">
+        <thead>
+        <tr>
+        <th>Set</th>
+        <th>KGs</th>
+        <th>Reps</th>
+        </tr>
+        </thead>
+        <tbody>"""
+
+        sets_rows = ""
+        for i, set_data in enumerate(self.sets.all(), start=1):
+            sets_rows += '<tr><td>{}</td><td>{}</td><td>{}</td></tr>'.format(i, set_data.kgs, set_data.reps)
+
+        return sets_table + sets_rows + "</tbody></table>"
 
 
 class ExerciseSet(models.Model):

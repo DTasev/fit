@@ -2,110 +2,108 @@
 {% load tz %}
 
 {% block content %}
-    <div class="mt-2 mt-lg-5 mx-2">
-        {% if not object_list.completed %}
-            <a href="{% url 'today:create' %}" class="btn btn-outline-dark btn-block mb-3">Generate New Workout</a>
+  <div class="mt-2 mt-lg-5 mx-2">
+    {% if not object_list.completed %}
+      <a href="{% url 'today:create' %}" class="btn btn-outline-dark btn-block mb-3">Generate New Workout</a>
 
-            {% if object_list %}
-                {% if not object_list.start_time %}
-                    <form action="{% url 'today:start' object_list.pk %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-dark btn-block">Start Workout</button>
-                    </form>
-                {% else %}
-                        <p>Workout started at {{ object_list.duration }}</p>
-                {% endif %}
-            {% endif %}
+      {% if object_list %}
+        {% if not object_list.start_time %}
+          <form action="{% url 'today:start' object_list.pk %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-dark btn-block">Start Workout</button>
+          </form>
+        {% else %}
+          <p>Workout started at {{ object_list.duration }}</p>
         {% endif %}
+      {% endif %}
+    {% endif %}
 
-        {% if object_list %}
-            <div class="card-body my-3
+    {% if object_list %}
+      <div class="card-body my-3
 {% if object_list.completed %}
 border border-success
 {% elif object_list.start_time %}
 border border-warning
 {% endif %}
 ">
-                <p class="lead">Today's Workout:</p>
-                <hr>
-                <div class="card mx-auto" style="width: 18rem;">
-                    <div class="card-header">
-                        <h5>Primary</h5>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        {% for p in object_list.primary %}
-                            <li class="list-group-item" style="padding: 0;">
-                                <a href="{% url 'today:sets:add_set' p.id %}" class="d-inline-block text-dark"
-                                   style="padding: 1rem 0 1rem 1rem;width:250px;">
-                                    {{ p }}</a>
-                                <div class="dropleft d-inline-block float-right pt-2">
-                                    <button class="btn btn-outline-secondary" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <form action="{% url 'today:replace' p.id %}" method="post"
-                                              class="dropdown-item">
-                                            {% csrf_token %}
-                                            <button class="btn btn-block btn-outline-dark"
-                                                    onclick="return confirm('Replace exercise? This is not reversible!');">
-                                                Replace
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
+        <p class="lead">Today's Workout:</p>
+        <hr>
+        <div class="card mx-auto" style="width: 18rem;">
+          <div class="card-header">
+            <h5>Primary</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for p in object_list.primary %}
+              <li class="list-group-item" style="padding: 0;">
+                <a href="{% url 'today:sets:add_set' p.id %}" class="d-inline-block text-dark"
+                   style="padding: 1rem 0 1rem 1rem;width:250px;">
+                  {{ p }}</a>
+                <div class="dropleft d-inline-block float-right pt-2">
+                  <button class="btn btn-outline-secondary" type="button" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                  <div class="dropdown-menu" style="margin-right: 1px;">
+                    <form action="{% url 'today:replace' p.id %}" method="post"
+                          class="dropdown-item">
+                      {% csrf_token %}
+                      <button class="btn btn-block btn-outline-dark"
+                              onclick="return confirm('Replace exercise? This is not reversible!');">
+                        Replace
+                      </button>
+                    </form>
+                  </div>
                 </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
 
-                {% if object_list.secondary %}
-                    <div class="card mx-auto " style="width: 18rem; margin-top: 0.3rem">
-                        <div class="card-header">
-                            <h5>Secondary</h5>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            {% for p in object_list.secondary %}
-                                <li class="list-group-item" style="padding: 0;">
-                                    <a href="{% url 'today:sets:add_set' p.id %}" class="d-inline-block text-dark"
-                                       style="padding: 1rem 0 1rem 1rem;width:250px;">
-                                        {{ p }}</a>
-                                    <div class="dropleft d-inline-block float-right pt-2">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <form action="{% url 'today:replace' p.id %}" method="post"
-                                                  class="dropdown-item">
-                                                {% csrf_token %}
-                                                <button class="btn btn-block btn-outline-dark"
-                                                        onclick="return confirm('Replace exercise? This is not reversible!');">
-                                                    Replace
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
+        {% if object_list.secondary %}
+          <div class="card mx-auto " style="width: 18rem; margin-top: 0.3rem">
+            <div class="card-header">
+              <h5>Secondary</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              {% for p in object_list.secondary %}
+                <li class="list-group-item" style="padding: 0;">
+                  <a href="{% url 'today:sets:add_set' p.id %}" class="d-inline-block text-dark"
+                     style="padding: 1rem 0 1rem 1rem;width:250px;">
+                    {{ p }}</a>
+                  <div class="dropleft d-inline-block float-right pt-2">
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-right: 1px;">
+                      <form action="{% url 'today:replace' p.id %}" method="post"
+                            class="dropdown-item">
+                        {% csrf_token %}
+                        <button class="btn btn-block btn-outline-dark"
+                                onclick="return confirm('Replace exercise? This is not reversible!');">
+                          Replace
+                        </button>
+                      </form>
                     </div>
-                {% endif %}
-            </div>
-            <form action="{% url 'today:complete' object_list.id %}" method="post">
-                {% csrf_token %}
-                {% if object_list.completed %}
-                    <button class="btn btn-dark btn-block">Remove Completion</button>
-                {% else %}
-                    <button class="btn btn-dark btn-block">Complete Workout</button>
-                {% endif %}
-            </form>
-        {% else %}
-            <div class="mx-auto text-center mt-3">
-                <h3>You don't seem to have a workout for today. Create one!</h3>
-            </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         {% endif %}
-    </div>
+      </div>
+      <form action="{% url 'today:complete' object_list.id %}" method="post">
+        {% csrf_token %}
+        {% if object_list.completed %}
+          <button class="btn btn-dark btn-block">Remove Completion</button>
+        {% else %}
+          <button class="btn btn-dark btn-block">Complete Workout</button>
+        {% endif %}
+      </form>
+    {% else %}
+      <div class="mx-auto text-center mt-3">
+        <h3>You don't seem to have a workout for today. Create one!</h3>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
