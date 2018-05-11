@@ -59,7 +59,19 @@ border border-success
             </div>
             <ul class="list-group list-group-flush">
               {% for p in w.secondary %}
-                <li class="list-group-item">{{ p }} {{ p.sets_string }}</li>
+                <li class="list-group-item d-inline-block" style="padding: 0">
+                  <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;">{{ p }}</a>
+                  {% if p.sets.all %}
+                    <div class="dropleft d-inline-block float-right pt-2">
+                      <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                      <div class="dropdown-menu" style="margin-right: 1px;">
+                        {{ p.sets_table|safe }}
+                      </div>
+                    </div>
+                  {% endif %}
+                </li>
               {% endfor %}
             </ul>
           </div>
