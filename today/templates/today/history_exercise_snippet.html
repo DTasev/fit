@@ -1,0 +1,15 @@
+{% for exercise in workout_exercises %}
+  <li class="list-group-item d-inline-block" style="padding: 0">
+    <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;">{{ exercise }}</a>
+    {% if exercise.sets.all %}
+      <div class="dropleft d-inline-block float-right pt-2">
+        <button class="btn btn-outline-secondary" type="button">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+        <div class="dropdown-menu" style="margin-right: 1px;">
+          {{ exercise.sets_table|safe }}
+        </div>
+      </div>
+    {% endif %}
+  </li>
+{% endfor %}

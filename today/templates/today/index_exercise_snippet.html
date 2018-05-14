@@ -1,0 +1,25 @@
+{% for exercise in workout_exercises %}
+  <li class="list-group-item" style="padding: 0;">
+    <a href="{% url 'today:sets:add_set' exercise.id %}" class="d-inline-block text-dark"
+       style="padding: 1rem 0 1rem 1rem;width:250px;">
+      {{ exercise }}</a>
+    {% if not completed %}
+      <div class="dropleft d-inline-block float-right pt-2">
+        <button class="btn btn-outline-secondary" type="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+        <div class="dropdown-menu" style="margin-right: 1px;">
+          <form action="{% url 'today:replace' exercise.id %}" method="post"
+                class="dropdown-item">
+            {% csrf_token %}
+            <button class="btn btn-block btn-outline-dark"
+                    onclick="return confirm('Replace exercise? This is not reversible!');">
+              Replace
+            </button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  </li>
+{% endfor %}

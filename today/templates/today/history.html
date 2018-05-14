@@ -32,45 +32,16 @@ border border-success
               <h5>Primary</h5>
             </div>
             <ul class="list-group list-group-flush">
-              {% for p in w.primary %}
-                <li class="list-group-item d-inline-block" style="padding: 0">
-                  <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;">{{ p }}</a>
-                  {% if p.sets.all %}
-                    <div class="dropleft d-inline-block float-right pt-2">
-                      <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </button>
-                      <div class="dropdown-menu" style="margin-right: 1px;">
-                        {{ p.sets_table|safe }}
-                      </div>
-                    </div>
-                  {% endif %}
-                </li>
-              {% endfor %}
+              {% include 'today/history_exercise_snippet.html' with workout_exercises=w.primary %}
             </ul>
           </div>
           {% if w.secondary %}
-
-            <div class="card" style="margin-top: 0.3rem">
+            <div class="card mt-1">
               <div class="card-header">
                 <h5>Secondary</h5>
               </div>
               <ul class="list-group list-group-flush">
-                {% for p in w.secondary %}
-                  <li class="list-group-item d-inline-block" style="padding: 0">
-                    <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;">{{ p }}</a>
-                    {% if p.sets.all %}
-                      <div class="dropleft d-inline-block float-right pt-2">
-                        <button class="btn btn-outline-secondary" type="button">
-                          <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                        <div class="dropdown-menu" style="margin-right: 1px;">
-                          {{ p.sets_table|safe }}
-                        </div>
-                      </div>
-                    {% endif %}
-                  </li>
-                {% endfor %}
+                {% include 'today/history_exercise_snippet.html' with workout_exercises=w.secondary %}
               </ul>
             </div>
           {% endif %}

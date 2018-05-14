@@ -32,7 +32,6 @@
 
         <input type="submit" value="Repeat Last" class="btn btn-outline-dark btn-block"/>
       </form>
-
     </div>
     <form method="post" action="{% url 'today:sets:add_set' exercise.id %}">
       {% csrf_token %}
