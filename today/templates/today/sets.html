@@ -2,7 +2,9 @@
 {% load enumerate %}
 {% block content %}
   <div class="card my-3">
-    <h2 class="lead">{{ exercise }}</h2>
+    <h2 class="text-center py-4 lead">{{ exercise }}
+      <a target="_blank" href="https://www.google.co.uk/search?q={{ exercise }}"><i class="fab fa-google"></i></a>
+    </h2>
 
     <table class="table table-sm">
       <thead>
@@ -19,25 +21,19 @@
           <td>{{ i }}</td>
           <td>{{ set.kgs }}</td>
           <td>{{ set.reps }}</td>
-          <td><a class="btn btn-outline-dark" href="{% url 'today:sets:edit_set' set.pk %}">Edit</a></td>
+          <td><a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:edit_set' set.pk %}">Edit</a></td>
         </tr>
       {% endfor %}
       </tbody>
     </table>
     <div class="">
-      <form method="post" action="{% url 'today:sets:repeat_set' exercise.id %}" class="pt-3">
+      <form method="post" action="{% url 'today:sets:repeat_set' exercise.id %}" class="pb-3">
         {% csrf_token %}
 
         <input type="submit" value="Repeat Last" class="btn btn-outline-dark btn-block"/>
       </form>
 
     </div>
-    <form method="post" action="{% url 'today:sets:del_set' exercise.id %}" class="py-3">
-      {% csrf_token %}
-
-      <input type="submit" value="Remove Last" class="btn btn-outline-dark btn-block"
-             style="width: 100%"/>
-    </form>
     <form method="post" action="{% url 'today:sets:add_set' exercise.id %}">
       {% csrf_token %}
       <div class="input-group mb-3">
@@ -64,6 +60,12 @@
       <input type="submit" value="Add" class="btn btn-outline-dark btn-block"
              style="width: 100%"/>
       <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
+    <form method="post" action="{% url 'today:sets:del_set' exercise.id %}" class="pt-3">
+      {% csrf_token %}
+
+      <input type="submit" value="Remove Last" class="btn btn-outline-dark btn-block"
+             style="width: 100%"/>
     </form>
   </div>
 {% endblock %}
