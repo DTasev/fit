@@ -73,36 +73,17 @@ class WorkoutExercise(models.Model):
 
     def sets_table(self):
         sets_table = """
-        <table class="table table-sm">
-        <thead>
-        <tr>
-        <th>Set</th>
-        <th>KGs</th>
-        <th>Reps</th>
-        </tr>
-        </thead>
-        <tbody>"""
+        <table class="table table-sm"><thead><tr><th>Set</th><th>KGs</th><th>Reps</th></tr></thead>
+        <tbody>{}</tbody></table>"""
 
         sets_rows = ""
         for i, set_data in enumerate(self.sets.all(), start=1):
             sets_rows += '<tr><td>{}</td><td>{}</td><td>{}</td></tr>'.format(i, set_data.kgs, set_data.reps)
 
-        return sets_table + sets_rows + "</tbody></table>"
+        return sets_table.format(sets_rows)
 
 
 class ExerciseSet(models.Model):
     workout_exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, related_name="sets")
     reps = models.IntegerField()
     kgs = models.FloatField()
-
-
-def split_old_sets(apps, schema_editor):
-    WorkoutExercise = apps.get_model('workout', 'WorkoutExercise')
-    ExerciseSet = apps.get_model('workout', 'ExerciseSet')
-
-    for w in WorkoutExercise.objects.all():
-        if w.old_sets != "":
-            for set in w.old_sets.split(SPECIAL_EXERCISES_JOIN_CHARACTER):
-                # this gives back a list [<kgs>, <reps>]
-                kgs_and_reps = set.split("x")
-                ExerciseSet.objects.create(workout_exercise=w, kgs=float(kgs_and_reps[0]), reps=int(kgs_and_reps[1]))
