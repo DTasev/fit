@@ -1,7 +1,8 @@
 {% for exercise in workout_exercises %}
   <li class="list-group-item d-inline-block" style="padding: 0">
-    <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;">{{ exercise }}</a>
     {% if exercise.sets.all %}
+      <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;"
+         href="{% url 'today:sets:view_readonly' exercise.id %}">{{ exercise }}</a>
       <div class="dropleft d-inline-block float-right pt-2">
         <button class="btn btn-outline-secondary" type="button">
           <i class="fas fa-ellipsis-v"></i>
@@ -10,6 +11,8 @@
           {{ exercise.sets_table|safe }}
         </div>
       </div>
+    {% else %}
+      <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;">{{ exercise }}</a>
     {% endif %}
   </li>
 {% endfor %}

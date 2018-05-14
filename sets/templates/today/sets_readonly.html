@@ -1,0 +1,27 @@
+{% extends 'base_generic.html' %}
+{% load enumerate %}
+{% block public %}
+  <div class="card my-3">
+    <h2 class="text-center py-4 lead">{{ exercise }}
+      <a target="_blank" href="https://www.google.co.uk/search?q={{ exercise }}"><i class="fab fa-google"></i></a>
+    </h2>
+
+    <table class="table table-sm text-center table-bordered">
+      <thead>
+      <tr>
+        <th>Set</th>
+        <th>KGs</th>
+        <th>Reps</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for i, set in exercise.sets.order_by|enumerate %}
+        <tr>
+          <td>{{ i }}</td>
+          <td>{{ set.kgs }}</td>
+          <td>{{ set.reps }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

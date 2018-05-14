@@ -1,9 +1,13 @@
 {% for exercise in workout_exercises %}
   <li class="list-group-item" style="padding: 0;">
-    <a href="{% url 'today:sets:add_set' exercise.id %}" class="d-inline-block text-dark"
-       style="padding: 1rem 0 1rem 1rem;width:250px;">
-      {{ exercise }}</a>
-    {% if not completed %}
+    {% if completed %}
+      <a href="{% url 'today:sets:view_readonly' exercise.id %}" class="d-inline-block text-dark"
+         style="padding: 1rem 0 1rem 1rem;width:250px;">
+        {{ exercise }}</a>
+    {% else %}
+      <a href="{% url 'today:sets:add_set' exercise.id %}" class="d-inline-block text-dark"
+         style="padding: 1rem 0 1rem 1rem;width:250px;">
+        {{ exercise }}</a>
       <div class="dropleft d-inline-block float-right pt-2">
         <button class="btn btn-outline-secondary" type="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">

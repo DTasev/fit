@@ -70,7 +70,7 @@
 <div class="row mx-auto">
   <div class="col hidden-xs hidden-sm hidden-md hidden-lg col-xl-3"></div>
   <div class="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 border border-dark bg-light py-3">
-    {% block bypass_auth %}
+    {% block public %}
       {% if user.is_authenticated %}
         <a href="{% url 'today:index' %}" class="btn btn-outline-dark">Home</a>
         <a href="{% url 'today:history' %}" class="btn btn-outline-dark">History</a>

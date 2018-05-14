@@ -34,17 +34,23 @@ def del_set(request, pk):
 def add_set(request, pk):
     e = WorkoutExercise.objects.get(id=pk)
     if request.method == "GET":
-        return render(request, 'today/sets.html', {"exercise": e})
+        return render(request, 'today/sets_edit.html', {"exercise": e})
     elif request.method == "POST":
 
         # return error for missing KGs
         if request.POST["kgs"] == "":
-            return render(request, 'today/sets.html',
+            return render(request, 'today/sets_edit.html',
                           {"exercise": e, "kgs_error": "KGs not specified", "prev_reps_value": request.POST["reps"]})
         # return error for missing reps
         elif request.POST["reps"] == "":
-            return render(request, 'today/sets.html',
+            return render(request, 'today/sets_edit.html',
                           {"exercise": e, "reps_error": "Reps not specified", "prev_kgs_value": request.POST["kgs"]})
 
         e.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"])
-        return render(request, 'today/sets.html', {"exercise": e})
+        return render(request, 'today/sets_edit.html', {"exercise": e})
+
+
+def view_readonly_set(request, pk):
+    e = WorkoutExercise.objects.get(id=pk)
+    return render(request, 'today/sets_readonly.html', {"exercise": e})
+

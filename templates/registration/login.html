@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 {% load addclass %}
 
-{% block bypass_auth %}
+{% block public %}
     {% if form.errors %}
         <div class="w3-border w3-border-red" style="margin: 16px">
             <div class="w3-padding-16 w3-center">SELECT * FROM users WHERE username={{ form.username.value }};
