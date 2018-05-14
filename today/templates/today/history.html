@@ -1,12 +1,5 @@
 {% extends 'base_generic.html' %}
 
-{% block script_head %}
-  <script>
-      function show(elem, sets) {
-          console.log(elem, sets);
-      }
-  </script>
-{% endblock %}
 {% block content %}
   <div class="mt-2 mt-lg-5 mx-2">
     {% for w in workout_list %}
@@ -15,7 +8,10 @@
 border border-success
 {% endif %}">
         <div class="card-header">
-          {{ w.date }} - {{ w.primary_muscle_group }} and {{ w.secondary_muscle_group }}
+          {{ w.date }} - {{ w.primary_muscle_group }}
+          {% if w.secondary %}
+            and {{ w.secondary_muscle_group }}
+          {% endif %}
           {% if w.completed %}
             - Completed!
           {% endif %}
@@ -53,39 +49,33 @@ border border-success
               {% endfor %}
             </ul>
           </div>
-          <div class="card" style="margin-top: 0.3rem">
-            <div class="card-header">
-              <h5>Secondary</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              {% for p in w.secondary %}
-                <li class="list-group-item d-inline-block" style="padding: 0">
-                  <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;">{{ p }}</a>
-                  {% if p.sets.all %}
-                    <div class="dropleft d-inline-block float-right pt-2">
-                      <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </button>
-                      <div class="dropdown-menu" style="margin-right: 1px;">
-                        {{ p.sets_table|safe }}
+          {% if w.secondary %}
+
+            <div class="card" style="margin-top: 0.3rem">
+              <div class="card-header">
+                <h5>Secondary</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                {% for p in w.secondary %}
+                  <li class="list-group-item d-inline-block" style="padding: 0">
+                    <a class="d-inline-block text-dark" style="padding: 1rem 0 1rem 1rem;width:235px;">{{ p }}</a>
+                    {% if p.sets.all %}
+                      <div class="dropleft d-inline-block float-right pt-2">
+                        <button class="btn btn-outline-secondary" type="button">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu" style="margin-right: 1px;">
+                          {{ p.sets_table|safe }}
+                        </div>
                       </div>
-                    </div>
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
         </div>
       </div>
     {% endfor %}
-    {#        <form action="{% url 'today:complete' %}" method="post">#}
-    {#            {% csrf_token %}#}
-    {#            {% if object_list.completed %}#}
-    {#                <button class="btn btn-dark btn-block">Remove Completion</button>#}
-    {#            {% else %}#}
-    {#                <button class="btn btn-dark btn-block">Complete Workout</button>#}
-    {#            {% endif %}#}
-    {#            <input type="hidden" name="workout" value="{{ object_list.id }}">#}
-    {#        </form>#}
   </div>
 {% endblock %}
