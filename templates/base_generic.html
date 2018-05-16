@@ -144,17 +144,16 @@
     }
 
     .fab-overlay {
-      position: absolute;
+      {# fixed allows covering the screen fully #}
+      position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      opacity: 0.9;
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+      {# the z index is 1 smaller than the buttons in the fab #}
       z-index: 99;
       background-color: #1b1e21;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      transition: .3s;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 
   </style>
@@ -193,7 +192,8 @@
         </div>
         <div>
           <div id="fab-overlay" class="fab-overlay" style="display:none" onclick="hideFabMenu()"></div>
-          <button class="fab-main-button fab-position" onclick="expandFabMenu()">
+{#        the outline: none does not seem to work when in the CSS, so added directly on the element here #}
+          <button class="fab-main-button fab-position" onclick="expandFabMenu()" style="outline: none;">
             <div>+</div>
             <ul id="fab-menu-container" class="fab-menu-container" style="display:none">
               {% block fab %}{% endblock %}
