@@ -5,8 +5,8 @@
   <script>
       /**
        *
-       * @param inputId
-       * @param element
+       * @param {HTMLElement} element
+       * @param {string} inputId
        */
       function addNumberToInput(element, inputId) {
           const input_field = document.getElementById(inputId);
@@ -14,6 +14,23 @@
           input_field.value = new_val < 0 ? 0 : new_val;
       }
   </script>
+{% endblock %}
+{% block fab %}
+  <li class="fab-menu-item-1">
+    <form method="post" action="{% url 'today:sets:repeat_set' exercise.id %}" class="pb-3">
+      {% csrf_token %}
+
+      <input type="submit" class="fab-menu-button fab-menu-item-icon" value="R">
+      <div class="fab-menu-item-label">Repeat Last</div>
+    </form>
+  </li>
+  <li class="fab-menu-item-2">
+    <form method="post" action="{% url 'today:sets:del_set' exercise.id %}" class="pt-3">
+      {% csrf_token %}
+      <input type="submit" class="fab-menu-button fab-menu-item-icon" value="D">
+      <div class="fab-menu-item-label">Remove Last</div>
+    </form>
+  </li>
 {% endblock %}
 {% block content %}
   <div class="card my-3">
@@ -41,13 +58,6 @@
       {% endfor %}
       </tbody>
     </table>
-    <div class="">
-      <form method="post" action="{% url 'today:sets:repeat_set' exercise.id %}" class="pb-3">
-        {% csrf_token %}
-
-        <input type="submit" value="Repeat Last" class="btn btn-outline-dark btn-block"/>
-      </form>
-    </div>
     <form method="post" action="{% url 'today:sets:add_set' exercise.id %}">
       {% csrf_token %}
       <div class="input-group mb-3">
@@ -78,12 +88,6 @@
       <input type="submit" value="Add" class="btn btn-outline-dark btn-block"
              style="width: 100%"/>
       <input type="hidden" name="next" value="{{ next }}"/>
-    </form>
-    <form method="post" action="{% url 'today:sets:del_set' exercise.id %}" class="pt-3">
-      {% csrf_token %}
-
-      <input type="submit" value="Remove Last" class="btn btn-outline-dark btn-block"
-             style="width: 100%"/>
     </form>
   </div>
 {% endblock %}

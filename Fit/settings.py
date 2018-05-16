@@ -67,6 +67,7 @@ else:
 ALLOWED_HOSTS = ['fit.dtasev.me', 'localhost']
 if HOST.DEVELOPMENT:
     ALLOWED_HOSTS.append('127.0.0.1')
+    ALLOWED_HOSTS.append('.localtunnel.me')
     CORS_ORIGIN_WHITELIST = (
         '127.0.0.1:8001',
         'localhost:8001',

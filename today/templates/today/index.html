@@ -1,16 +1,37 @@
 {% extends 'base_generic.html' %}
 {% load tz %}
+{% block fab %}
+  {% if not object_list.completed %}
+    <li class="fab-menu-item-1">
+      <a href="{% url 'today:create' %}" class="fab-menu-button fab-menu-item-icon">G</a>
+      <div class="fab-menu-item-label">Generate Workout</div>
+    </li>
 
+    {% if object_list %}
+      {% if not object_list.start_time %}
+        <li class="fab-menu-item-2">
+          <form action="{% url 'today:start' object_list.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" class="fab-menu-button fab-menu-item-icon" value="S">
+            <div class="fab-menu-item-label">Start Workout</div>
+          </form>
+        </li>
+      {% else %}
+        <p>Workout started at {{ object_list.duration }}</p>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endblock %}
 {% block content %}
-  <div class="mt-2 mt-lg-5 mx-2">
+  <div class="mt-3 mt-lg-5 mx-2">
     {% if not object_list.completed %}
-      <a href="{% url 'today:create' %}" class="btn btn-outline-dark btn-block mb-3">Generate New Workout</a>
+      <a href="{% url 'today:create' %}" class="btn btn-outline-dark btn-block bg-white mb-3">Generate New Workout</a>
 
       {% if object_list %}
         {% if not object_list.start_time %}
           <form action="{% url 'today:start' object_list.pk %}" method="post">
             {% csrf_token %}
-            <button class="btn btn-outline-dark btn-block">Start Workout</button>
+            <button class="btn btn-outline-dark btn-block bg-white">Start Workout</button>
           </form>
         {% else %}
           <p>Workout started at {{ object_list.duration }}</p>

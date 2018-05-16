@@ -10,5 +10,5 @@ urlpatterns = [
     path('delete/<int:pk>', del_set, name="del_set"),
     path('repeat/<int:pk>', repeat_set, name="repeat_set"),
     path('edit/<int:pk>', EditSet.as_view(), name="edit_set"),
-    path('readonly/<int:pk>', view_readonly_set, name="view_readonly")
+    path('readonly/<int:pk>', view_readonly_set, name="view_readonly"),
 ]
