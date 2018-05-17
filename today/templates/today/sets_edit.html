@@ -19,7 +19,6 @@
   <li class="fab-menu-item-1">
     <form method="post" action="{% url 'today:sets:repeat_set' exercise.id %}" class="pb-3">
       {% csrf_token %}
-
       <input type="submit" class="fab-menu-button fab-menu-item-icon" value="R">
       <div class="fab-menu-item-label">Repeat Last</div>
     </form>
@@ -64,7 +63,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">KGs</span>
         </div>
-        <input type="number" step="0.5" class="form-control" placeholder="e.g. 30" name="kgs" id="kgs-input-field"
+        <input type="number" step="0.1" class="form-control" placeholder="e.g. 30" name="kgs" id="kgs-input-field"
                min="0"
                value="{{ prev_kgs_value }}">
       </div>

@@ -48,6 +48,14 @@ border border-warning
 {% endif %}
 ">
         <p class="lead">Today's Workout:</p>
+        {% if sets_error_message %}
+          <div class="bg-danger p-3" id="sets-error-message">{{ sets_error_message }}</div>
+          <script>
+              setTimeout(() => {
+                  document.getElementById("sets-error-message").style.display = "none";
+              }, 3000);
+          </script>
+        {% endif %}
         <hr>
         <div class="card mx-auto" style="width: 18rem;">
           <div class="card-header">
