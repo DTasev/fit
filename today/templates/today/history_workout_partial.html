@@ -1,0 +1,54 @@
+<div class="card my-3
+{% if workout.completed %}
+border border-success
+{% endif %}">
+  <div class="card-header">
+    {{ workout.date }} - {{ workout.primary_muscle_group }}
+    {% if workout.secondary %}
+      and {{ workout.secondary_muscle_group }}
+    {% endif %}
+    {% if workout.completed %}
+      - Completed!
+    {% endif %}
+    {{ workout.duration }}
+    {% if not public %}
+      <div class="d-inline-block float-right">
+        <div class="dropleft d-inline-block float-right pt-2">
+          <button class="btn btn-outline-secondary" type="button">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+          <div class="dropdown-menu text-center" style="margin-right: 1px;">
+            <a class="dropdown-item border-bottom" href="{% url 'today:share' w.id %}">Share</a>
+            <form method="post" action="{% url 'today:delete' w.id %}">
+              {% csrf_token %}
+              <button class="dropdown-item"
+                      onclick="return confirm('Are you sure you want to delete the workout? This is NOT reversible.')">
+                Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <div class="card">
+      <div class="card-header">
+        <h5>Primary</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% include 'today/history_exercise_snippet.html' with workout_exercises=workout.primary %}
+      </ul>
+    </div>
+    {% if workout.secondary %}
+      <div class="card mt-1">
+        <div class="card-header">
+          <h5>Secondary</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          {% include 'today/history_exercise_snippet.html' with workout_exercises=workout.secondary %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</div>
