@@ -17,13 +17,21 @@ border border-success
           {% endif %}
           {{ w.duration }}
           <div class="d-inline-block float-right">
-            <form method="post" action="{% url 'today:delete' w.id %}">
-              {% csrf_token %}
-              <button class="btn btn-outline-dark"
-                      onclick="return confirm('Are you sure you want to delete the workout? This is NOT reversible.')">
-                Delete
+            <div class="dropleft d-inline-block float-right pt-2">
+              <button class="btn btn-outline-secondary" type="button">
+                <i class="fas fa-ellipsis-v"></i>
               </button>
-            </form>
+              <div class="dropdown-menu text-center" style="margin-right: 1px;">
+                <a class="dropdown-item border-bottom" href="{% url 'today:share' w.id %}">Share</a>
+                <form method="post" action="{% url 'today:delete' w.id %}">
+                  {% csrf_token %}
+                  <button class="dropdown-item"
+                          onclick="return confirm('Are you sure you want to delete the workout? This is NOT reversible.')">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-body">

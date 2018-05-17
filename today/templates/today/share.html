@@ -1,0 +1,41 @@
+{% extends 'base_generic.html' %}
+
+{% block public %}
+  <div class="mt-2 mx-2">
+    <div class="card my-3
+{% if workout.completed %}
+border border-success
+{% endif %}">
+      <div class="card-header">
+        {{ workout.date }} - {{ workout.primary_muscle_group }}
+        {% if workout.secondary %}
+          and {{ workout.secondary_muscle_group }}
+        {% endif %}
+        {% if workout.completed %}
+          - Completed!
+        {% endif %}
+        {{ workout.duration }}
+      </div>
+      <div class="card-body">
+        <div class="card">
+          <div class="card-header">
+            <h5>Primary</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            {% include 'today/history_exercise_snippet.html' with workout_exercises=workout.primary %}
+          </ul>
+        </div>
+        {% if workout.secondary %}
+          <div class="card mt-1">
+            <div class="card-header">
+              <h5>Secondary</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              {% include 'today/history_exercise_snippet.html' with workout_exercises=workout.secondary %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

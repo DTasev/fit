@@ -35,6 +35,11 @@ class HistoryView(generic.ListView):
         return Workout.objects.filter(user_id=self.request.user)
 
 
+class ShareView(generic.DetailView):
+    model = Workout
+    template_name = 'today/share.html'
+
+
 class DeleteView(generic.DeleteView):
     model = Workout
     success_url = reverse_lazy('today:history')
