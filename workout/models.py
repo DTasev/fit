@@ -26,9 +26,7 @@ class Workout(models.Model):
         if not self.start_time:
             return ""
         if not self.end_time:
-            # timezone.now() has the TZ of the server, not the client
-            # and this doesnt show the correct duration
-            return timezone.now() - self.start_time
+            return str(timezone.now() - self.start_time)[:7]
         return "Duration: " + str(self.end_time - self.start_time)[:7]
 
     class Meta:

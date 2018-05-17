@@ -16,8 +16,6 @@
             <div class="fab-menu-item-label">Start Workout</div>
           </form>
         </li>
-      {% else %}
-        <p>Workout started at {{ object_list.duration }}</p>
       {% endif %}
     {% endif %}
   {% endif %}
@@ -34,7 +32,22 @@
             <button class="btn btn-outline-dark btn-block bg-white">Start Workout</button>
           </form>
         {% else %}
-          <p>Workout started at {{ object_list.duration }}</p>
+          <div>Duration:
+            <div id="duration" class="d-inline-block">{{ object_list.duration }}</div>
+          </div>
+          <script>
+              (function () {
+                  const duration = document.getElementById("duration");
+                  if (duration.textContent.length === 7) {
+                      duration.textContent = "0" + duration.textContent;
+                  }
+                  const date = new Date("2000-01-01T" + duration.textContent + "Z");
+                  setInterval(() => {
+                      date.setSeconds(date.getSeconds() + 1);
+                      duration.innerHTML = date.toLocaleTimeString();
+                  }, 1000)
+              })()
+          </script>
         {% endif %}
       {% endif %}
     {% endif %}
