@@ -1,0 +1,15 @@
+<div class="p-1">
+  <a href="{% url 'today:index' %}" class="text-dark font-weight-bold" data-highlight-url="/">Home</a>
+  <a href="{% url 'today:history' %}" class="text-dark font-weight-bold mx-3"
+     data-highlight-url="/history">History</a>
+  <div class="dropdown d-inline-block float-right">
+    {{ user }}
+    <button class="btn btn-sm btn-light" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+      <i class="fas fa-ellipsis-v"></i>
+    </button>
+    <div class="dropdown-menu text-center" style="left:-70px;">
+      <a href="{% url 'logout' %}" class="dropdown-item">Log out</a>
+    </div>
+  </div>
+</div>

@@ -170,43 +170,38 @@
       }
   </script>
   {#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>#}
-{#  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
-{#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>#}
+  {#  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
+  {#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>#}
 
 </head>
 <body class="bg-dark">
 <div class="row mx-auto">
-  <div class="col hidden-xs hidden-sm hidden-md hidden-lg col-xl-3"></div>
-  <div class="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 border border-dark bg-light py-3">
+  <div class="hidden-xs hidden-sm hidden-md hidden-lg col col-xl-3"></div>
+  <div class="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 p-0">
     {% block public %}
       {% if user.is_authenticated %}
-        <a href="{% url 'today:index' %}" class="text-dark font-weight-bold" data-highlight-url="/">Home</a>
-        <a href="{% url 'today:history' %}" class="text-dark font-weight-bold mx-3" data-highlight-url="/history">History</a>
-        <div class="dropdown d-inline-block float-right">
-          {{ user }}
-          <button class="btn btn-sm btn-light" type="button" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-            <i class="fas fa-ellipsis-v"></i>
-          </button>
-          <div class="dropdown-menu text-center" style="left:-70px;">
-            <a href="{% url 'logout' %}" class="dropdown-item">Log out</a>
+        <div class="border border-dark bg-light p-2">
+          {% include 'navbar.html' %}
+          <div>
+            <div id="fab-overlay" class="fab-overlay" style="display:none" onclick="hideFabMenu()"></div>
+            {#        the outline: none does not seem to work when in the CSS, so added directly on the element here #}
+            <button class="fab-main-button fab-position" onclick="expandFabMenu()" style="outline: none;">
+              <div>+</div>
+              <ul id="fab-menu-container" class="fab-menu-container" style="display:none">
+                {% block fab %}{% endblock %}
+              </ul>
+            </button>
           </div>
+          {% block content %}{% endblock %}
         </div>
-        <div>
-          <div id="fab-overlay" class="fab-overlay" style="display:none" onclick="hideFabMenu()"></div>
-          {#        the outline: none does not seem to work when in the CSS, so added directly on the element here #}
-          <button class="fab-main-button fab-position" onclick="expandFabMenu()" style="outline: none;">
-            <div>+</div>
-            <ul id="fab-menu-container" class="fab-menu-container" style="display:none">
-              {% block fab %}{% endblock %}
-            </ul>
-          </button>
-        </div>
-        {% block content %}{% endblock %}
       {% else %}
-        <p>Please login</p><br>
-        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-block">Login</a>
-        <a href="{% url 'signup' %}" class="btn btn-outline-dark btn-block">Register</a>
+        <div class="border border-dark bg-light p-3" style="margin-top: 33vh;">
+          {% block not_auth %}
+            <p class="text-center pb-3">Fit - Make and Track Workouts</p>
+            <a href="{% url 'login' %}" class="btn btn-primary btn-block">Login</a>
+            <a href="{% url 'signup' %}" class="btn btn-outline-dark btn-block">Register</a>
+          {% endblock %}
+        </div>
       {% endif %}
     {% endblock %}
   </div>

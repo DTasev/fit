@@ -1,10 +1,11 @@
 {% extends 'base_generic.html' %}
 {% load enumerate %}
+
 {% block public %}
   <div class="card my-3">
-    <h2 class="text-center py-4 lead">{{ exercise }}
+    <h5 class="text-center py-4">{{ exercise }}
       <a target="_blank" href="https://www.google.co.uk/search?q={{ exercise }}"><i class="fab fa-google"></i></a>
-    </h2>
+    </h5>
 
     <table class="table table-sm text-center table-bordered">
       <thead>
@@ -24,4 +25,8 @@
       {% endfor %}
       </tbody>
     </table>
+{#  <div>#}
+{#    <a href="{% url 'today:share' exercise.workout_id %}" class="btn btn-outline-dark btn-block my-3">Back to workout</a>#}
+{#  </div>#}
+  </div>
 {% endblock %}

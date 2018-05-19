@@ -13,15 +13,19 @@
 {% endblock %}
 {% block content %}
   <div class="mt-2 mx-2">
-    <label class="pt-3">
-      Workout month:
-      <input type="month" value="{{ selected_month }}" onchange="showWorkoutForMonth(this)">
-    </label>
+    <div class="py-2 justify-content-center align-middle border bg-white rounded d-flex">
+      <div>
+        <label style="margin-bottom: 0">
+          Workout month:
+          <input type="month" value="{{ selected_month }}" onchange="showWorkoutForMonth(this)">
+        </label>
+      </div>
+    </div>
     {% for w in workout_list %}
       {% include 'today/history_workout_partial.html' with workout=w public=False %}
     {% empty %}
       <div class="py-3 text-center">
-      <h5>You don't seem to have any workouts for this month!</h5>
+        <h5>You don't seem to have any workouts for this month!</h5>
       </div>
     {% endfor %}
   </div>

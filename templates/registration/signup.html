@@ -3,8 +3,8 @@
 {#{% block title %}#}
 {#    Registration#}
 {#{% endblock %}#}
-{% block public %}
-    <h2 class="w3-center">Sign up</h2>
+{% block not_auth %}
+    <h2 class="text-center">Sign up</h2>
     <form method="post" class="w3-margin">
         {% csrf_token %}
         {{ form.as_p }}

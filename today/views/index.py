@@ -54,9 +54,6 @@ class HistoryView(generic.ListView):
                                           date__year=month_parameter[0:4],
                                           date__month=month_parameter[5:])
 
-        # if not then get when date <= today - 1 week
-        # else if present then get when date <= today - 1 + (page) weeks
-
 
 class ShareView(generic.DetailView):
     model = Workout

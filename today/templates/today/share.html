@@ -1,7 +1,12 @@
 {% extends 'base_generic.html' %}
 
 {% block public %}
-  <div class="mt-2 mx-2">
-    {% include 'today/history_workout_partial.html' with workout=workout public=True %}
+  <div class="border border-dark bg-light p-2">
+    {% if user.is_authenticated %}
+      {% include 'navbar.html' %}
+    {% endif %}
+    <div class="mt-2 mx-2">
+      {% include 'today/history_workout_partial.html' with workout=workout public=True %}
+    </div>
   </div>
 {% endblock %}
