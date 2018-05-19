@@ -1,13 +1,16 @@
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.views import generic
 
 from workout.models import Workout
 
 
-def complete_workout(request, pk):
-    if request.method == "POST":
-        w = Workout.objects.get(id=pk)
+class CompleteWorkout(generic.DetailView):
+    model = Workout
+
+    def post(self, request, *args, **kwargs):
+        w = self.get_object()
         if not w.completed:
             w.completed = True
             if w.start_time:
@@ -16,6 +19,5 @@ def complete_workout(request, pk):
             w.completed = False
             w.start_time = None
             w.end_time = None
-
         w.save()
         return redirect(reverse('today:index'))
