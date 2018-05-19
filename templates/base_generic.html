@@ -144,15 +144,13 @@
     }
 
     .fab-overlay {
-      {# fixed allows covering the screen fully #}
-      position: fixed;
+    {# fixed allows covering the screen fully #} position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       opacity: 0.8;
-      {# the z index is 1 smaller than the buttons in the fab #}
-      z-index: 99;
+    {# the z index is 1 smaller than the buttons in the fab #} z-index: 99;
       background-color: #1b1e21;
     }
 
@@ -171,6 +169,10 @@
           document.getElementById("fab-menu-container").style.display = "none";
       }
   </script>
+  {#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>#}
+{#  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
+{#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>#}
+
 </head>
 <body class="bg-dark">
 <div class="row mx-auto">
@@ -192,7 +194,7 @@
         </div>
         <div>
           <div id="fab-overlay" class="fab-overlay" style="display:none" onclick="hideFabMenu()"></div>
-{#        the outline: none does not seem to work when in the CSS, so added directly on the element here #}
+          {#        the outline: none does not seem to work when in the CSS, so added directly on the element here #}
           <button class="fab-main-button fab-position" onclick="expandFabMenu()" style="outline: none;">
             <div>+</div>
             <ul id="fab-menu-container" class="fab-menu-container" style="display:none">

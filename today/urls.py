@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from today.views.create import create_workout
 from today.views.index import IndexView, HistoryView, DeleteView, ShareView
-from today.views.complete import complete_workout, CompleteWorkout
+from today.views.complete import CompleteWorkout
 from today.views.replace import ReplaceExercise
 from today.views.start import StartWorkout
 
