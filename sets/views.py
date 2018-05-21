@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views import generic
 from django.views.generic.edit import UpdateView
 
 from workout.models import WorkoutExercise, ExerciseSet
@@ -51,6 +52,45 @@ def add_set(request, pk):
         e.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"])
         return render(request, 'today/sets_edit.html',
                       {"exercise": e, "prev_reps_value": request.POST["reps"], "prev_kgs_value": request.POST["kgs"]})
+
+
+class AddSetView(generic.DetailView):
+    model = WorkoutExercise
+
+    def get(self, request, *args, **kwargs):
+        e = self.get_object()
+        latest_set = e.sets.last()
+        past_exercises = WorkoutExercise.objects.filter(workout__user=request.user, exercise__name=e.exercise.name)
+        exercise_from_last_time = None
+        if len(past_exercises) > 1:
+            # get the data for the last time the exercise was performed
+            past_exercises = past_exercises[len(past_exercises) - 2]
+            if past_exercises.sets.count() != 0:
+                exercise_from_last_time = past_exercises
+
+        return render(request, 'today/sets_edit.html',
+                      {"exercise": e, "prev_reps_value": getattr(latest_set, "reps", None),
+                       "prev_kgs_value": getattr(latest_set, "kgs", None),
+                       "exercise_from_last_time": exercise_from_last_time})
+
+    def post(self, request, *args, **kwargs):
+        e = self.get_object()
+
+        # return error for missing KGs
+        if request.POST["kgs"] == "":
+            return render(request, 'today/sets_edit.html',
+                          {"exercise": e, "kgs_error": "KGs not specified",
+                           "prev_reps_value": request.POST["reps"]})
+        # return error for missing reps
+        elif request.POST["reps"] == "":
+            return render(request, 'today/sets_edit.html',
+                          {"exercise": e, "reps_error": "Reps not specified",
+                           "prev_kgs_value": request.POST["kgs"]})
+
+        e.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"])
+        return render(request, 'today/sets_edit.html',
+                      {"exercise": e, "prev_reps_value": request.POST["reps"],
+                       "prev_kgs_value": request.POST["kgs"]})
 
 
 def view_readonly_set(request, pk):

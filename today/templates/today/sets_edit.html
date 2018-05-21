@@ -3,16 +3,16 @@
 
 {% block script_head %}
   <script>
-      /**
-       *
-       * @param {HTMLElement} element
-       * @param {string} inputId
-       */
-      function addNumberToInput(element, inputId) {
-          const input_field = document.getElementById(inputId);
-          const new_val = eval(input_field.value + element.textContent);
-          input_field.value = new_val < 0 ? 0 : new_val;
-      }
+    /**
+     *
+     * @param {HTMLElement} element
+     * @param {string} inputId
+     */
+    function addNumberToInput(element, inputId) {
+      const input_field = document.getElementById(inputId);
+      const new_val = eval(input_field.value + element.textContent);
+      input_field.value = new_val < 0 ? 0 : new_val;
+    }
   </script>
 {% endblock %}
 {% block fab %}
@@ -35,6 +35,19 @@
   <div class="card my-3">
     <h2 class="text-center py-4 lead">{{ exercise }}
       <a target="_blank" href="https://www.google.co.uk/search?q={{ exercise }}"><i class="fab fa-google"></i></a>
+      {% if exercise_from_last_time %}
+        <div class="dropleft d-inline-block float-right pt-2">
+          <button class="btn btn-outline-secondary" type="button">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+          <div class="dropdown-menu" style="margin-right: 1px;">
+            <h6 class="dropdown-header">Sets from last time</h6>
+            <div class="dropdown-item">
+              {{ exercise_from_last_time.sets_table|safe }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
     </h2>
 
     <table class="table table-sm text-center">

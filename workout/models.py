@@ -70,6 +70,10 @@ class WorkoutExercise(models.Model):
         return sets_string + "]"
 
     def sets_table(self):
+        """
+        TODO this should probably be in a partial rather than the model
+        :return:
+        """
         sets_table = """
         <table class="table table-sm"><thead><tr><th>Set</th><th>KGs</th><th>Reps</th></tr></thead>
         <tbody>{}</tbody></table>"""
