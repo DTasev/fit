@@ -60,6 +60,14 @@ class AddSetView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         e = self.get_object()
         latest_set = e.sets.last()
+        exercise_from_last_time = self.get_last_exercise(e, request)
+
+        return render(request, 'today/sets_edit.html',
+                      {"exercise": e, "prev_reps_value": getattr(latest_set, "reps", None),
+                       "prev_kgs_value": getattr(latest_set, "kgs", None),
+                       "exercise_from_last_time": exercise_from_last_time})
+
+    def get_last_exercise(self, e, request):
         past_exercises = WorkoutExercise.objects.filter(workout__user=request.user, exercise__name=e.exercise.name)
         exercise_from_last_time = None
         if len(past_exercises) > 1:
@@ -67,14 +75,11 @@ class AddSetView(generic.DetailView):
             past_exercises = past_exercises[len(past_exercises) - 2]
             if past_exercises.sets.count() != 0:
                 exercise_from_last_time = past_exercises
-
-        return render(request, 'today/sets_edit.html',
-                      {"exercise": e, "prev_reps_value": getattr(latest_set, "reps", None),
-                       "prev_kgs_value": getattr(latest_set, "kgs", None),
-                       "exercise_from_last_time": exercise_from_last_time})
+        return exercise_from_last_time
 
     def post(self, request, *args, **kwargs):
         e = self.get_object()
+        exercise_from_last_time = self.get_last_exercise(e, request)
 
         # return error for missing KGs
         if request.POST["kgs"] == "":
@@ -90,7 +95,8 @@ class AddSetView(generic.DetailView):
         e.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"])
         return render(request, 'today/sets_edit.html',
                       {"exercise": e, "prev_reps_value": request.POST["reps"],
-                       "prev_kgs_value": request.POST["kgs"]})
+                       "prev_kgs_value": request.POST["kgs"],
+                       "exercise_from_last_time": exercise_from_last_time})
 
 
 def view_readonly_set(request, pk):
