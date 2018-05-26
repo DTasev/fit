@@ -34,8 +34,22 @@ class Workout(models.Model):
 
 
 class Exercise(models.Model):
-    muscle_group = models.CharField(max_length=200)
+    ARMS = "ARMS"
+    SHOULDERS = "SHOULDERS"
+    LEGS = "LEGS"
+    BACK = "BACK"
+    CHEST = "CHEST"
+
+    MUSCLE_GROUPS = (
+        (ARMS, 'Arms'),
+        (SHOULDERS, 'Shoulders'),
+        (LEGS, "Legs"),
+        (BACK, "Back"),
+        (CHEST, "Chest"),
+    )
+    muscle_group = models.CharField(max_length=200, choices=MUSCLE_GROUPS)
     name = models.CharField(max_length=200)
+    is_compound = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["id"]
