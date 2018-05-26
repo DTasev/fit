@@ -11,6 +11,7 @@ from django.contrib import messages
 class IndexView(generic.ListView):
     model = Workout
     template_name = 'today/index.html'
+    context_object_name = "workout"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)

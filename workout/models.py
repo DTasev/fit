@@ -34,11 +34,11 @@ class Workout(models.Model):
 
 
 class Exercise(models.Model):
-    ARMS = "ARMS"
-    SHOULDERS = "SHOULDERS"
-    LEGS = "LEGS"
-    BACK = "BACK"
-    CHEST = "CHEST"
+    ARMS = "Arms"
+    SHOULDERS = "Shoulders"
+    LEGS = "Legs"
+    BACK = "Back"
+    CHEST = "Chest"
 
     MUSCLE_GROUPS = (
         (ARMS, 'Arms'),
