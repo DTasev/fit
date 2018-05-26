@@ -36,21 +36,21 @@ def add_set(request, pk):
     e = WorkoutExercise.objects.get(id=pk)
     if request.method == "GET":
         last_set = e.sets.last()
-        return render(request, 'today/sets_edit.html',
+        return render(request, 'sets/edit.html',
                       {"exercise": e, "prev_reps_value": getattr(last_set, "reps", None),
                        "prev_kgs_value": getattr(last_set, "kgs", None)})
     elif request.method == "POST":
         # return error for missing KGs
         if request.POST["kgs"] == "":
-            return render(request, 'today/sets_edit.html',
+            return render(request, 'sets/edit.html',
                           {"exercise": e, "kgs_error": "KGs not specified", "prev_reps_value": request.POST["reps"]})
         # return error for missing reps
         elif request.POST["reps"] == "":
-            return render(request, 'today/sets_edit.html',
+            return render(request, 'sets/edit.html',
                           {"exercise": e, "reps_error": "Reps not specified", "prev_kgs_value": request.POST["kgs"]})
 
         e.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"])
-        return render(request, 'today/sets_edit.html',
+        return render(request, 'sets/edit.html',
                       {"exercise": e, "prev_reps_value": request.POST["reps"], "prev_kgs_value": request.POST["kgs"]})
 
 
@@ -62,9 +62,9 @@ class AddSetView(generic.DetailView):
         latest_set = e.sets.last()
         exercise_from_last_time = self.get_last_exercise(e, request)
 
-        return render(request, 'today/sets_edit.html',
-                      {"exercise": e, "prev_reps_value": getattr(latest_set, "reps", None),
-                       "prev_kgs_value": getattr(latest_set, "kgs", None),
+        return render(request, 'sets/edit.html',
+                      {"exercise": e, "prev_reps_value": getattr(latest_set, "reps", 0),
+                       "prev_kgs_value": getattr(latest_set, "kgs", 0),
                        "exercise_from_last_time": exercise_from_last_time})
 
     def get_last_exercise(self, e, request):
@@ -83,17 +83,17 @@ class AddSetView(generic.DetailView):
 
         # return error for missing KGs
         if request.POST["kgs"] == "":
-            return render(request, 'today/sets_edit.html',
+            return render(request, 'sets/edit.html',
                           {"exercise": e, "kgs_error": "KGs not specified",
                            "prev_reps_value": request.POST["reps"]})
         # return error for missing reps
         elif request.POST["reps"] == "":
-            return render(request, 'today/sets_edit.html',
+            return render(request, 'sets/edit.html',
                           {"exercise": e, "reps_error": "Reps not specified",
                            "prev_kgs_value": request.POST["kgs"]})
 
         e.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"])
-        return render(request, 'today/sets_edit.html',
+        return render(request, 'sets/edit.html',
                       {"exercise": e, "prev_reps_value": request.POST["reps"],
                        "prev_kgs_value": request.POST["kgs"],
                        "exercise_from_last_time": exercise_from_last_time})
@@ -101,4 +101,4 @@ class AddSetView(generic.DetailView):
 
 def view_readonly_set(request, pk):
     e = WorkoutExercise.objects.get(id=pk)
-    return render(request, 'today/sets_readonly.html', {"exercise": e})
+    return render(request, 'sets/readonly.html', {"exercise": e})

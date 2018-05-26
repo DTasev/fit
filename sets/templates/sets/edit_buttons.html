@@ -3,9 +3,10 @@
 
 {% block script_head %}
   <script>
-    /**
+    /** Adds the text of the button (which is + or - a number) to the current value, and evaluates it. This makes
+     * JS compute the statement of [old value +/- new value] and set the input field to the result.
      *
-     * @param {HTMLElement} element
+     * @param {HTMLButtonElement} element Element with value that will be added to the input field
      * @param {string} inputId
      */
     function addNumberToInput(element, inputId) {
@@ -80,7 +81,7 @@
                min="0"
                value="{{ prev_kgs_value }}">
       </div>
-      {% include 'today/sets_buttons_partial.html' with input_field_id="kgs-input-field" %}
+      {% include 'sets/buttons_partial.html' with input_field_id="kgs-input-field" %}
       {% if kgs_error %}
         <div class="btn-danger text-white p-2 m-2">{{ kgs_error }}</div>
       {% endif %}
@@ -91,7 +92,7 @@
         <input type="number" class="form-control" placeholder="e.g. 12" name="reps" min="0" id="reps-input-field"
                value="{{ prev_reps_value }}">
       </div>
-      {% include 'today/sets_buttons_partial.html' with input_field_id="reps-input-field" %}
+      {% include 'sets/buttons_partial.html' with input_field_id="reps-input-field" %}
 
       {% if reps_error %}
         <div class="btn-danger text-white p-2 m-2">{{ reps_error }}</div>

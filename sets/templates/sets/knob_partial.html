@@ -1,0 +1,13 @@
+{# the ID of the input field is appended to the knob so that it forms a new unique ID for every knob #}
+<x-knob divisions="10" min="0" max="650" style="width: 4rem; height: 4rem;"
+        id="kgs-knob-{{ input_field_id }}"></x-knob>
+<script>
+  (function () {
+    const knob = document.getElementById("kgs-knob-{{ input_field_id }}");
+    const field = document.getElementById("{{ input_field_id }}");
+    knob.addEventListener('input', () => field.value = knob.value);
+    field.onchange = (ev) => {
+      knob.value = field.value;
+    };
+  })()
+</script>
