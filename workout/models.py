@@ -114,8 +114,6 @@ class WorkoutDataCache(models.Model):
     NORMAL_KCALS_INCREMENT_PER_KG = 0.0583334  # increment per KG
     COMPOUND_KCALS_INCREMENT_PER_KG = 0.0833334  # increment per KG
 
-    # (user_kgs - 30)*kg_kcals_increment + start_kcals
-
     def compute_kcals(self, workout: Workout, user: User):
         try:
             user_kgs = user.details.weight
