@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 
@@ -103,3 +104,33 @@ class ExerciseSet(models.Model):
     workout_exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, related_name="sets")
     reps = models.IntegerField()
     kgs = models.FloatField()
+
+
+class WorkoutDataCache(models.Model):
+    workout = models.OneToOneField(Workout, on_delete=models.CASCADE, primary_key=True)
+    kcals = models.FloatField("KCALs Burned from Workout", blank=True, default=None, null=True)
+
+    START_KCALS = 1.75  # kcals per 1 min for 30kg
+    NORMAL_KCALS_INCREMENT_PER_KG = 0.0583334  # increment per KG
+    COMPOUND_KCALS_INCREMENT_PER_KG = 0.0833334  # increment per KG
+
+    # (user_kgs - 30)*kg_kcals_increment + start_kcals
+
+    def compute_kcals(self, workout: Workout, user: User):
+        try:
+            user_kgs = user.details.weight
+        except ObjectDoesNotExist:
+            user_kgs = 70
+
+        compound_exercise_kcals = (user_kgs - 30) * self.COMPOUND_KCALS_INCREMENT_PER_KG + self.START_KCALS
+        normal_exercise_kcals = (user_kgs - 30) * self.NORMAL_KCALS_INCREMENT_PER_KG + self.START_KCALS
+
+        total_kcals = 0
+        for set in workout.workoutexercise_set.all():
+            if set.exercise.is_compound:
+                total_kcals += set.sets.count() * compound_exercise_kcals
+            else:
+                total_kcals += set.sets.count() * normal_exercise_kcals
+
+        self.kcals = round(total_kcals, 2)
+        self.save()

@@ -8,19 +8,6 @@ from django.urls import reverse
 from workout.models import Workout, Exercise, WorkoutExercise
 
 
-def get_exercises(muscle_group):
-    if muscle_group == "Chest":
-        return muscle_group
-    elif muscle_group == "Back":
-        return muscle_group
-    elif muscle_group == "Arms":
-        return muscle_group
-    elif muscle_group == "Shoulders":
-        return muscle_group
-    elif muscle_group == "Legs":
-        return muscle_group
-
-
 def create_workout(request):
     if request.method == "GET":
         return render(template_name="today/create.html", request=request)

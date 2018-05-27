@@ -36,24 +36,24 @@ elif "TRAVIS" in os.environ:
 else:
     # if running the tests locally do not print out all SQL queries
     # this prevents loads of spam in the console
-    if not sys.argv[1] == "test":
-        # Prints out SQL queries in the console
-        LOGGING = {
-            'version': 1,
-            'disable_existing_loggers': False,
-            'handlers': {
-                'console': {
-                    'level': 'DEBUG',
-                    'class': 'logging.StreamHandler',
-                }
-            },
-            'loggers': {
-                'django.db.backends': {
-                    'handlers': ['console'],
-                    'level': 'DEBUG',
-                },
-            }
-        }
+    # if not sys.argv[1] == "test":
+    # Prints out SQL queries in the console
+    # LOGGING = {
+    #     'version': 1,
+    #     'disable_existing_loggers': False,
+    #     'handlers': {
+    #         'console': {
+    #             'level': 'DEBUG',
+    #             'class': 'logging.StreamHandler',
+    #         }
+    #     },
+    #     'loggers': {
+    #         'django.db.backends': {
+    #             'handlers': ['console'],
+    #             'level': 'DEBUG',
+    #         },
+    #     }
+    # }
     DEBUG = True
     HOST.DEVELOPMENT = True
     print("Running in DEVELOPMENT environment.")
@@ -76,6 +76,8 @@ if HOST.DEVELOPMENT:
 # Application definition
 
 INSTALLED_APPS = [
+    'user_profile.apps.UserProfileConfig',
+    'user_data.apps.UserDataConfig',
     'sets.apps.SetsConfig',
     'today.apps.TodayConfig',
     'workout.apps.WorkoutConfig',

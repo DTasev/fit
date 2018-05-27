@@ -1,11 +1,11 @@
 import datetime
 
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from django.views import generic
 
-from workout.models import Workout
-from django.contrib import messages
+from workout.models import Workout, WorkoutDataCache
 
 
 class IndexView(generic.ListView):
@@ -22,6 +22,15 @@ class IndexView(generic.ListView):
             msg = message
         if msg:
             context["sets_error_message"] = msg
+
+        #     TODO how to make sure the objects exists before querying it...
+        try:
+            data_cache = WorkoutDataCache.objects.get(workout=self.object_list)
+            if data_cache.kcals:
+                context["data_cache_kcals"] = data_cache.kcals
+        except WorkoutDataCache.DoesNotExist:
+            pass
+
         return context
 
     def get_queryset(self):

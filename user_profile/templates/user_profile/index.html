@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+  <div class="p-3">
+
+    <form action="{% url 'user_profile:index' user.username %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <label>Weight (KGs)
+        <input type="number" min="30" name="weight" value="{{ user.details.weight }}">
+      </label>
+      <button>Save</button>
+    </form>
+  </div>
+{% endblock %}
