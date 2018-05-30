@@ -35,11 +35,11 @@ def repeat_set(request, pk):
 
 # Create your views here.
 class DeleteSet(generic.DeleteView):
-    model = WorkoutExercise
+    model = ExerciseSet
 
     def post(self, request, *args, **kwargs):
         obj = super(DeleteSet, self).get_object()
-        if not obj.period.user == self.request.user:
+        if not obj.workout_exercise.workout.user == self.request.user:
             # Raise 404 to not show the user that the entry exists
             raise Http404
 
