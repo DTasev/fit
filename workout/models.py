@@ -3,6 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 
+from common.util import retrieve_time_from_timespan
+
 SPECIAL_EXERCISES_JOIN_CHARACTER = "|"
 
 
@@ -27,8 +29,8 @@ class Workout(models.Model):
         if not self.start_time:
             return ""
         if not self.end_time:
-            return str(timezone.now() - self.start_time)[:7]
-        return "Duration: " + str(self.end_time - self.start_time)[:7]
+            return retrieve_time_from_timespan(timezone.now() - self.start_time)
+        return "Duration: {0}".format(retrieve_time_from_timespan(timezone.now() - self.start_time))
 
     class Meta:
         ordering = ["-date"]
@@ -110,7 +112,7 @@ class ExerciseSet(models.Model):
         return self.time.strftime("%H:%M:%S")
 
     def since_last_set(self):
-        return str(timezone.now() - self.time)[:7]
+        return retrieve_time_from_timespan(timezone.now() - self.time)
 
 
 class WorkoutDataCache(models.Model):
