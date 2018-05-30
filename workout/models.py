@@ -110,6 +110,8 @@ class ExerciseSet(models.Model):
         return self.time.strftime("%H:%M:%S")
 
     def since_last_set(self):
+        # if not self.time:
+        #     return "00:00:00"
         return str(timezone.now() - self.time)[:7]
 
 

@@ -57,33 +57,34 @@
         </div>
       {% endif %}
     </h2>
-
-    <table class="table table-sm text-center">
-      <thead>
-      <tr>
-        <th>Set</th>
-        <th>KGs</th>
-        <th>Reps</th>
-        <th>Options</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for i, set in exercise.sets.order_by|enumerate %}
+    {% if latest_set %}
+      <table class="table table-sm text-center">
+        <thead>
         <tr>
-          <td>{{ i }}</td>
-          <td>{{ set.kgs }}</td>
-          <td>{{ set.reps }}</td>
-          <td><a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:update' set.pk %}">Edit</a></td>
+          <th>Set</th>
+          <th>KGs</th>
+          <th>Reps</th>
+          <th>Options</th>
         </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <div class="mb-3">
-    <button type="button" class="btn btn-success w-100 ">
-      Since last set: <span class="badge badge-light" id="duration">{{ latest_set.since_last_set }}</span>
-    </button>
-  </div>
+        </thead>
+        <tbody>
+        {% for i, set in exercise.sets.order_by|enumerate %}
+          <tr>
+            <td>{{ i }}</td>
+            <td>{{ set.kgs }}</td>
+            <td>{{ set.reps }}</td>
+            <td><a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:update' set.pk %}">Edit</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      <div class="mb-3">
+        <button type="button" class="btn btn-success w-100 ">
+          Since last set: <span class="badge badge-light" id="duration">{{ latest_set.since_last_set }}</span>
+        </button>
+      </div>
+    {% endif %}
   <script>
     (function () {
       const duration = document.getElementById("duration");
@@ -105,11 +106,11 @@
       </div>
       <input type="number" step="0.1" class="form-control" placeholder="e.g. 30" name="kgs" id="kgs-input-field"
              min="0"
-             value="{{ prev_kgs_value }}">
+             value="{{ latest_set.kgs }}">
     </div>
 
     <div class="text-center">
-      {% include 'sets/knob_partial.html' with input_field_id="kgs-input-field" %}
+      {% include 'sets/knob_partial.html' with input_field_id="kgs-input-field" initial_value=latest_set.kgs %}
     </div>
     {% include 'sets/buttons_partial.html' with input_field_id="kgs-input-field" %}
     {% if kgs_error %}
@@ -120,7 +121,7 @@
         <span class="input-group-text" id="basic-addon1">Reps</span>
       </div>
       <input type="number" class="form-control" placeholder="e.g. 12" name="reps" min="0" id="reps-input-field"
-             value="{{ prev_reps_value }}">
+             value="{{ latest_set.reps }}">
     </div>
     {% include 'sets/buttons_partial.html' with input_field_id="reps-input-field" %}
 

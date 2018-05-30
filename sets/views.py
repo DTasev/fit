@@ -69,10 +69,11 @@ class AddSetView(generic.DetailView):
         context = self.get_context_data(**kwargs)
         latest_set = self.object.sets.last()
 
+        #  TODO remove prev_reps_value and prev_kgs_value and just read them off of latest_set. make sure to pass it in the
+        #  POST method though!
         return render(request, 'sets/edit.html',
-                      context + {"exercise": self.object, "prev_reps_value": getattr(latest_set, "reps", 0),
-                                 "prev_kgs_value": getattr(latest_set, "kgs", 0),
-                                 "latest_set": latest_set})
+                      {**context, "exercise": self.object,
+                       "latest_set": latest_set})
 
     def get_last_exercise(self, e, request):
         past_exercises = WorkoutExercise.objects.filter(workout__user=request.user, exercise__name=e.exercise.name)
@@ -86,23 +87,23 @@ class AddSetView(generic.DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        context = self.get_context_data(**kwargs)
 
         # return error for missing KGs
         if request.POST["kgs"] == "":
             return render(request, 'sets/edit.html',
-                          {"exercise": self.object, "kgs_error": "KGs not specified",
+                          {**context, "exercise": self.object, "kgs_error": "KGs not specified",
                            "prev_reps_value": request.POST["reps"]})
         # return error for missing reps
         elif request.POST["reps"] == "":
             return render(request, 'sets/edit.html',
-                          {"exercise": self.object, "reps_error": "Reps not specified",
+                          {**context, "exercise": self.object, "reps_error": "Reps not specified",
                            "prev_kgs_value": request.POST["kgs"]})
 
-        self.object.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"], time=timezone.now())
-        context = self.get_context_data(**kwargs)
+        latest_set = self.object.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"], time=timezone.now())
         return render(request, 'sets/edit.html',
-                      context + {"exercise": self.object, "prev_reps_value": request.POST["reps"],
-                                 "prev_kgs_value": request.POST["kgs"]})
+                      {**context, "exercise": self.object,
+                       "latest_set": latest_set})
 
 
 def view_readonly_set(request, pk):
