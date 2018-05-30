@@ -4,7 +4,6 @@
     <div class="card my-3">
         <form method="post" action="{% url 'today:create' %}">
             {% csrf_token %}
-
             <label for="primary">Primary muscle group
                 <select name="primary">
                     <option>Chest</option>

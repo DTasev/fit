@@ -100,6 +100,12 @@ class AddSetView(generic.DetailView):
                           {**context, "exercise": self.object, "reps_error": "Reps not specified",
                            "prev_kgs_value": request.POST["kgs"]})
 
+        # both kgs and reps are present, check if the workout is started, and if not, start it
+        workout = self.object.workout
+        if not workout.start_time:
+            workout.start_time = timezone.now()
+            workout.save()
+
         latest_set = self.object.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"], time=timezone.now())
         return render(request, 'sets/edit.html',
                       {**context, "exercise": self.object,
