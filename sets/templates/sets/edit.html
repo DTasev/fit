@@ -20,8 +20,8 @@
       }
     }
   </script>
-  <script src="{% static 'sets/html5-knob/xknob.js' %}"></script>
-  <link href="{% static 'sets/html5-knob/xknob.css' %}" type="text/css" rel="stylesheet">
+  <script src="{% static 'sets/html5-knob/xknob.min.js' %}"></script>
+  <link href="{% static 'sets/html5-knob/xknob.min.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 {% block fab %}
   <li class="fab-menu-item-1">
@@ -42,7 +42,7 @@
 {% block content %}
   <div class="card my-3">
     <h2 class="text-center py-4 lead">{{ exercise }}
-      <a target="_blank" href="https://www.google.co.uk/search?q={{ exercise }}"><i class="fab fa-google"></i></a>
+      <a target="_blank" href="https://www.google.co.uk/search?q={{ exercise }}" style="text-decoration: none;"><span class="font-weight-bold" style="font-size: 1.6rem;">G</span></a>
       {% if exercise_from_last_time %}
         <div class="dropleft d-inline-block float-right pt-2">
           <button class="btn btn-outline-secondary" type="button">
@@ -73,7 +73,8 @@
             <td>{{ i }}</td>
             <td>{{ set.kgs }}</td>
             <td>{{ set.reps }}</td>
-            <td><a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:update' set.pk %}">Edit</a></td>
+            <td><a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:update' set.pk %}"><i
+              class="fas fa-pencil-alt"></i></a><span class="pl-3">✖</span></td>
           </tr>
         {% endfor %}
         </tbody>
