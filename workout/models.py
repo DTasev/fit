@@ -112,7 +112,8 @@ class ExerciseSet(models.Model):
         return self.time.strftime("%H:%M:%S")
 
     def since_last_set(self):
-        return retrieve_time_from_timespan(timezone.now() - self.time)
+        if self.time:
+            return retrieve_time_from_timespan(timezone.now() - self.time)
 
 
 class WorkoutDataCache(models.Model):

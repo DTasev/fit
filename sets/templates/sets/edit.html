@@ -96,11 +96,13 @@
         </tbody>
       </table>
       </div>
-      <div class="mb-3">
-        <button type="button" class="btn btn-success w-100 ">
-          Since last set: <span class="badge badge-light" id="duration">{{ latest_set.since_last_set }}</span>
-        </button>
-      </div>
+      {% if latest_set.time %}
+        <div class="mb-3">
+          <button type="button" class="btn btn-success w-100 ">
+            Since last set: <span class="badge badge-light" id="duration">{{ latest_set.since_last_set }}</span>
+          </button>
+        </div>
+      {% endif %}
     {% endif %}
   <script>
     (function () {
