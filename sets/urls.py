@@ -1,6 +1,6 @@
 from django.urls import path
 
-from sets.views import add_set, del_set, repeat_set, UpdateSet, view_readonly_set, AddSetView
+from sets.views import del_set, repeat_set, UpdateSet, view_readonly_set, AddSetView
 
 app_name = 'sets'
 

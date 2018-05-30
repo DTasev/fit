@@ -104,6 +104,13 @@ class ExerciseSet(models.Model):
     workout_exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, related_name="sets")
     reps = models.IntegerField()
     kgs = models.FloatField()
+    time = models.DateTimeField(default=None, null=True)
+
+    def pretty_time(self):
+        return self.time.strftime("%H:%M:%S")
+
+    def since_last_set(self):
+        return timezone.now() - self.time
 
 
 class WorkoutDataCache(models.Model):

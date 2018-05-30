@@ -78,6 +78,8 @@
       {% endfor %}
       </tbody>
     </table>
+    <div>Last set time: {{ latest_set.pretty_time }}</div>
+    <div>Since last set: {{ latest_set.since_last_set }}</div>
     <form method="post" action="{% url 'today:sets:add' exercise.id %}">
       {% csrf_token %}
       <div class="input-group mb-3">
