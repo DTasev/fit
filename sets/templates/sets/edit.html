@@ -4,6 +4,34 @@
 
 {% block script_head %}
   <script>
+    function deleteSet(element, url) {
+      POSTRequest(url, null, (request) => {
+        const parent = element.parentElement.parentElement;
+        element.parentElement.parentElement.parentElement.removeChild(parent);
+      });
+    }
+
+    const request = new XMLHttpRequest();
+
+    function POSTRequest(url, data, on_200, on_error) {
+      request.open("POST", url, true);
+      request.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+      request.onreadystatechange = () => {
+        if (request.readyState === XMLHttpRequest.DONE) {
+          if (request.status === 200) {
+            if (on_200) {
+              on_200(request);
+            }
+          } else {
+            if (on_error) {
+              on_error(request);
+            }
+          }
+        }
+      };
+      request.send(null);
+    }
+
     /** Adds the text of the button (which is + or - a number) to the current value, and evaluates it. This makes
      * JS compute the statement of [old value +/- new value] and set the input field to the result.
      *
@@ -23,26 +51,11 @@
   <script src="{% static 'sets/html5-knob/xknob.min.js' %}"></script>
   <link href="{% static 'sets/html5-knob/xknob.min.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
-{% block fab %}
-  <li class="fab-menu-item-1">
-    <form method="post" action="{% url 'today:sets:repeat' exercise.id %}" class="pb-3">
-      {% csrf_token %}
-      <input type="submit" class="fab-menu-button fab-menu-item-icon" value="R">
-      <div class="fab-menu-item-label">Repeat Last</div>
-    </form>
-  </li>
-  <li class="fab-menu-item-2">
-    <form method="post" action="{% url 'today:sets:del' exercise.id %}" class="pt-3">
-      {% csrf_token %}
-      <input type="submit" class="fab-menu-button fab-menu-item-icon" value="D">
-      <div class="fab-menu-item-label">Remove Last</div>
-    </form>
-  </li>
-{% endblock %}
 {% block content %}
   <div class="card my-3">
     <h2 class="text-center py-4 lead">{{ exercise }}
-      <a target="_blank" href="https://www.google.co.uk/search?q={{ exercise }}" style="text-decoration: none;"><span class="font-weight-bold" style="font-size: 1.6rem;">G</span></a>
+      <a target="_blank" href="https://www.google.co.uk/search?q={{ exercise }}" style="text-decoration: none;"><span
+        class="font-weight-bold" style="font-size: 1.6rem;">G</span></a>
       {% if exercise_from_last_time %}
         <div class="dropleft d-inline-block float-right pt-2">
           <button class="btn btn-outline-secondary" type="button">
@@ -73,8 +86,11 @@
             <td>{{ i }}</td>
             <td>{{ set.kgs }}</td>
             <td>{{ set.reps }}</td>
-            <td><a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:update' set.pk %}"><i
-              class="fas fa-pencil-alt"></i></a><span class="pl-3">✖</span></td>
+            <td>
+              <a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:update' set.pk %}"><i
+                class="fas fa-pencil-alt"></i></a>
+              <a class="btn btn-outline-dark btn-sm"
+                 onclick="deleteSet(this, '{% url 'today:sets:delete' set.pk %}')">✖</a>
           </tr>
         {% endfor %}
         </tbody>

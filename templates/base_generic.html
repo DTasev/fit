@@ -18,111 +18,21 @@
     .dropdown:hover .dropdown-menu {
       display: block;
     }
-
-    .fab-main-button {
-      width: 60px;
-      height: 60px;
-      border-radius: 100%;
-      background: #F44336;
-      border: none;
-      outline: none;
-      color: #FFF;
-      font-size: 36px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      transition: .3s;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-
-    .fab-menu-button {
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      background: #F44336;
-      border: none;
-      outline: none;
-      color: #FFF;
-      font-size: 36px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-
-    .fab-main-button > div {
-      margin-top: -8px;
-    }
-
-    .fab-position {
-      z-index: 100;
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-    }
-
-    .fab-menu-container {
-      list-style-type: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    {#transition: .3s;#} -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-
-    .fab-menu-item-1 {
-      position: absolute;
-      top: -125px;
-      left: -10px;
-    }
-
-    .fab-menu-item-2 {
-      position: absolute;
-      top: -30px;
-      left: -120px;
-    }
-
-    .fab-menu-item-icon {
-      font-size: 0.7em;
-      position: absolute;
-      left: 11px;
-      top: 0;
-    }
-
-    .fab-menu-item-label {
-      position: absolute;
-      top: 40px;
-      left: -1px;
-      font-size: 0.45em;
-      color: white;
-      width: 4rem;
-    }
-
-    .fab-overlay {
-    {# fixed allows covering the screen fully #} position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.8;
-    {# the z index is 1 smaller than the buttons in the fab #} z-index: 99;
-      background-color: #1b1e21;
-    }
   </style>
   <title>Fit</title>
   {% block script_head %}
   {% endblock %}
-  <script>
-      function expandFabMenu() {
-          document.getElementById("fab-overlay").style.display = "block";
-          document.getElementById("fab-menu-container").style.display = "block";
-      }
-
-      function hideFabMenu() {
-          document.getElementById("fab-overlay").style.display = "none";
-          document.getElementById("fab-menu-container").style.display = "none";
-      }
-  </script>
+{#  <script>#}
+{#    function expandFabMenu() {#}
+{#      document.getElementById("fab-overlay").style.display = "block";#}
+{#      document.getElementById("fab-menu-container").style.display = "block";#}
+{#    }#}
+{##}
+{#    function hideFabMenu() {#}
+{#      document.getElementById("fab-overlay").style.display = "none";#}
+{#      document.getElementById("fab-menu-container").style.display = "none";#}
+{#    }#}
+{#  </script>#}
   {#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>#}
   {#  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
   {#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>#}
@@ -136,16 +46,16 @@
       {% if user.is_authenticated %}
         <div class="border border-dark bg-light p-2">
           {% include 'navbar.html' %}
-          <div>
-            <div id="fab-overlay" class="fab-overlay" style="display:none" onclick="hideFabMenu()"></div>
+{#          <div>#}
+{#            <div id="fab-overlay" class="fab-overlay" style="display:none" onclick="hideFabMenu()"></div>#}
             {#        the outline: none does not seem to work when in the CSS, so added directly on the element here #}
-            <button class="fab-main-button fab-position" onclick="expandFabMenu()" style="outline: none;">
-              <div>+</div>
-              <ul id="fab-menu-container" class="fab-menu-container" style="display:none">
-                {% block fab %}{% endblock %}
-              </ul>
-            </button>
-          </div>
+{#            <button class="fab-main-button fab-position" onclick="expandFabMenu()" style="outline: none;">#}
+{#              <div>+</div>#}
+{#              <ul id="fab-menu-container" class="fab-menu-container" style="display:none">#}
+{#                {% block fab %}{% endblock %}#}
+{#              </ul>#}
+{#            </button>#}
+{#          </div>#}
           {% block content %}{% endblock %}
         </div>
       {% else %}
@@ -164,15 +74,15 @@
 
 </body>
 <script>
-{#  function to highlight the currently clicked link #}
-    (function () {
-        const relevantLinks = document.querySelectorAll("[data-highlight-url]");
-        for (const link of relevantLinks) {
-            if (link.dataset.highlightUrl === window.location.pathname) {
-                link.style = "opacity:0.8;";
-                break;
-            }
-        }
-    })()
+  {#  function to highlight the currently clicked link #}
+  (function () {
+    const relevantLinks = document.querySelectorAll("[data-highlight-url]");
+    for (const link of relevantLinks) {
+      if (link.dataset.highlightUrl === window.location.pathname) {
+        link.style = "opacity:0.8;";
+        break;
+      }
+    }
+  })()
 </script>
 </html>

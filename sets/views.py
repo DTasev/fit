@@ -1,3 +1,4 @@
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -26,11 +27,24 @@ def repeat_set(request, pk):
     return redirect(reverse('today:sets:add', kwargs={"pk": e.id}))
 
 
-def del_set(request, pk):
-    e = WorkoutExercise.objects.get(id=pk)
-    if request.method == "POST":
-        e.sets.last().delete()
-    return redirect(reverse('today:sets:add', kwargs={"pk": e.id}))
+# def del_set(request, pk):
+#     e = WorkoutExercise.objects.get(id=pk)
+#     if request.method == "POST":
+#         e.sets.last().delete()
+#     return redirect(reverse('today:sets:add', kwargs={"pk": e.id}))
+
+# Create your views here.
+class DeleteSet(generic.DeleteView):
+    model = WorkoutExercise
+
+    def post(self, request, *args, **kwargs):
+        obj = super(DeleteSet, self).get_object()
+        if not obj.period.user == self.request.user:
+            # Raise 404 to not show the user that the entry exists
+            raise Http404
+
+        obj.delete()
+        return HttpResponse('Entry deleted successfully')
 
 
 # def add_set(request, pk):
