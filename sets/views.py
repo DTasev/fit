@@ -6,13 +6,13 @@ from django.views.generic.edit import UpdateView
 from workout.models import WorkoutExercise, ExerciseSet
 
 
-class EditSet(UpdateView):
+class UpdateSet(UpdateView):
     model = ExerciseSet
-    template_name = 'sets/edit.html'
+    template_name = 'sets/update.html'
     fields = ('kgs', 'reps')
 
     def get_success_url(self):
-        return reverse('today:sets:add_set', kwargs={"pk": self.object.workout_exercise.pk})
+        return reverse('today:sets:add', kwargs={"pk": self.object.workout_exercise.pk})
 
 
 def repeat_set(request, pk):
@@ -22,14 +22,14 @@ def repeat_set(request, pk):
         if last:
             last.pk = None
             last.save()
-    return redirect(reverse('today:sets:add_set', kwargs={"pk": e.id}))
+    return redirect(reverse('today:sets:add', kwargs={"pk": e.id}))
 
 
 def del_set(request, pk):
     e = WorkoutExercise.objects.get(id=pk)
     if request.method == "POST":
         e.sets.last().delete()
-    return redirect(reverse('today:sets:add_set', kwargs={"pk": e.id}))
+    return redirect(reverse('today:sets:add', kwargs={"pk": e.id}))
 
 
 def add_set(request, pk):

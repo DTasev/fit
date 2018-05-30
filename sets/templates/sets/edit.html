@@ -15,7 +15,9 @@
       const new_val = eval(input_field.value + element.textContent);
       input_field.value = new_val < 0 ? 0 : new_val;
       {# manually trigger the onchange event, this will set the value on the knob (if present) #}
-      input_field.onchange(null);
+      if (input_field.onchange) {
+        input_field.onchange(null);
+      }
     }
   </script>
   <script src="{% static 'sets/html5-knob/xknob.js' %}"></script>
@@ -23,14 +25,14 @@
 {% endblock %}
 {% block fab %}
   <li class="fab-menu-item-1">
-    <form method="post" action="{% url 'today:sets:repeat_set' exercise.id %}" class="pb-3">
+    <form method="post" action="{% url 'today:sets:repeat' exercise.id %}" class="pb-3">
       {% csrf_token %}
       <input type="submit" class="fab-menu-button fab-menu-item-icon" value="R">
       <div class="fab-menu-item-label">Repeat Last</div>
     </form>
   </li>
   <li class="fab-menu-item-2">
-    <form method="post" action="{% url 'today:sets:del_set' exercise.id %}" class="pt-3">
+    <form method="post" action="{% url 'today:sets:del' exercise.id %}" class="pt-3">
       {% csrf_token %}
       <input type="submit" class="fab-menu-button fab-menu-item-icon" value="D">
       <div class="fab-menu-item-label">Remove Last</div>
@@ -71,12 +73,12 @@
           <td>{{ i }}</td>
           <td>{{ set.kgs }}</td>
           <td>{{ set.reps }}</td>
-          <td><a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:edit_set' set.pk %}">Edit</a></td>
+          <td><a class="btn btn-outline-dark btn-sm" href="{% url 'today:sets:update' set.pk %}">Edit</a></td>
         </tr>
       {% endfor %}
       </tbody>
     </table>
-    <form method="post" action="{% url 'today:sets:add_set' exercise.id %}">
+    <form method="post" action="{% url 'today:sets:add' exercise.id %}">
       {% csrf_token %}
       <div class="input-group mb-3">
         <div class="input-group-prepend">

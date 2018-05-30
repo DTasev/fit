@@ -5,7 +5,7 @@
          style="padding: 1rem 0 1rem 1rem;width:250px;">
         {{ exercise }}</a>
     {% else %}
-      <a href="{% url 'today:sets:add_set' exercise.id %}" class="d-inline-block text-dark"
+      <a href="{% url 'today:sets:add' exercise.id %}" class="d-inline-block text-dark"
          style="padding: 1rem 0 1rem 1rem;width:250px;">
         {{ exercise }}</a>
       <div class="dropleft d-inline-block float-right pt-2">

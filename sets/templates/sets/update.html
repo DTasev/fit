@@ -1,0 +1,10 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+  <div>
+    <form action="{% url 'today:sets:update' object.pk %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button>Save</button>
+    </form>
+  </div>
+{% endblock %}
