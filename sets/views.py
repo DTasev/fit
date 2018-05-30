@@ -59,16 +59,20 @@ def del_set(request, pk):
 class AddSetView(generic.DetailView):
     model = WorkoutExercise
 
+    def get_context_data(self, **kwargs):
+        context = super(AddSetView, self).get_context_data(**kwargs)
+        context["exercise_from_last_time"] = self.get_last_exercise(self.object, self.request)
+        return context
+
     def get(self, request, *args, **kwargs):
-        e = self.get_object()
-        latest_set = e.sets.last()
-        exercise_from_last_time = self.get_last_exercise(e, request)
+        self.object = self.get_object()
+        context = self.get_context_data(**kwargs)
+        latest_set = self.object.sets.last()
 
         return render(request, 'sets/edit.html',
-                      {"exercise": e, "prev_reps_value": getattr(latest_set, "reps", 0),
-                       "prev_kgs_value": getattr(latest_set, "kgs", 0),
-                       "exercise_from_last_time": exercise_from_last_time,
-                       "latest_set": latest_set})
+                      context + {"exercise": self.object, "prev_reps_value": getattr(latest_set, "reps", 0),
+                                 "prev_kgs_value": getattr(latest_set, "kgs", 0),
+                                 "latest_set": latest_set})
 
     def get_last_exercise(self, e, request):
         past_exercises = WorkoutExercise.objects.filter(workout__user=request.user, exercise__name=e.exercise.name)
@@ -81,25 +85,24 @@ class AddSetView(generic.DetailView):
         return exercise_from_last_time
 
     def post(self, request, *args, **kwargs):
-        e = self.get_object()
-        exercise_from_last_time = self.get_last_exercise(e, request)
+        self.object = self.get_object()
 
         # return error for missing KGs
         if request.POST["kgs"] == "":
             return render(request, 'sets/edit.html',
-                          {"exercise": e, "kgs_error": "KGs not specified",
+                          {"exercise": self.object, "kgs_error": "KGs not specified",
                            "prev_reps_value": request.POST["reps"]})
         # return error for missing reps
         elif request.POST["reps"] == "":
             return render(request, 'sets/edit.html',
-                          {"exercise": e, "reps_error": "Reps not specified",
+                          {"exercise": self.object, "reps_error": "Reps not specified",
                            "prev_kgs_value": request.POST["kgs"]})
 
-        e.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"], time=timezone.now())
+        self.object.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"], time=timezone.now())
+        context = self.get_context_data(**kwargs)
         return render(request, 'sets/edit.html',
-                      {"exercise": e, "prev_reps_value": request.POST["reps"],
-                       "prev_kgs_value": request.POST["kgs"],
-                       "exercise_from_last_time": exercise_from_last_time})
+                      context + {"exercise": self.object, "prev_reps_value": request.POST["reps"],
+                                 "prev_kgs_value": request.POST["kgs"]})
 
 
 def view_readonly_set(request, pk):

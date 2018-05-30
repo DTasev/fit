@@ -78,42 +78,59 @@
       {% endfor %}
       </tbody>
     </table>
-    <div>Last set time: {{ latest_set.pretty_time }}</div>
-    <div>Since last set: {{ latest_set.since_last_set }}</div>
-    <form method="post" action="{% url 'today:sets:add' exercise.id %}">
-      {% csrf_token %}
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">KGs</span>
-        </div>
-        <input type="number" step="0.1" class="form-control" placeholder="e.g. 30" name="kgs" id="kgs-input-field"
-               min="0"
-               value="{{ prev_kgs_value }}">
+  </div>
+  <div class="mb-3">
+    <button type="button" class="btn btn-success w-100 ">
+      Since last set: <span class="badge badge-light" id="duration">{{ latest_set.since_last_set }}</span>
+    </button>
+  </div>
+  <script>
+    (function () {
+      const duration = document.getElementById("duration");
+      if (duration.textContent.length === 7) {
+        duration.textContent = "0" + duration.textContent;
+      }
+      const date = new Date("2000-01-01T" + duration.textContent + "Z");
+      setInterval(() => {
+        date.setSeconds(date.getSeconds() + 1);
+        duration.innerHTML = date.toLocaleTimeString();
+      }, 1000)
+    })()
+  </script>
+  <form method="post" action="{% url 'today:sets:add' exercise.id %}">
+    {% csrf_token %}
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">KGs</span>
       </div>
+      <input type="number" step="0.1" class="form-control" placeholder="e.g. 30" name="kgs" id="kgs-input-field"
+             min="0"
+             value="{{ prev_kgs_value }}">
+    </div>
 
-      <div class="text-center">
-        {% include 'sets/knob_partial.html' with input_field_id="kgs-input-field" %}
+    <div class="text-center">
+      {% include 'sets/knob_partial.html' with input_field_id="kgs-input-field" %}
+    </div>
+    {% include 'sets/buttons_partial.html' with input_field_id="kgs-input-field" %}
+    {% if kgs_error %}
+      <div class="btn-danger text-white p-2 m-2">{{ kgs_error }}</div>
+    {% endif %}
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Reps</span>
       </div>
-      {% include 'sets/buttons_partial.html' with input_field_id="kgs-input-field" %}
-      {% if kgs_error %}
-        <div class="btn-danger text-white p-2 m-2">{{ kgs_error }}</div>
-      {% endif %}
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Reps</span>
-        </div>
-        <input type="number" class="form-control" placeholder="e.g. 12" name="reps" min="0" id="reps-input-field"
-               value="{{ prev_reps_value }}">
-      </div>
-      {% include 'sets/buttons_partial.html' with input_field_id="reps-input-field" %}
+      <input type="number" class="form-control" placeholder="e.g. 12" name="reps" min="0" id="reps-input-field"
+             value="{{ prev_reps_value }}">
+    </div>
+    {% include 'sets/buttons_partial.html' with input_field_id="reps-input-field" %}
 
-      {% if reps_error %}
-        <div class="btn-danger text-white p-2 m-2">{{ reps_error }}</div>
-      {% endif %}
+    {% if reps_error %}
+      <div class="btn-danger text-white p-2 m-2">{{ reps_error }}</div>
+    {% endif %}
 
-      <input type="submit" value="Add" class="btn btn-outline-dark btn-block"
-             style="width: 100%"/>
-      <input type="hidden" name="next" value="{{ next }}"/>
-    </form>
+    <input type="submit" value="Add" class="btn btn-outline-dark btn-block"
+           style="width: 100%"/>
+    <input type="hidden" name="next" value="{{ next }}"/>
+  </form>
   </div>
 {% endblock %}

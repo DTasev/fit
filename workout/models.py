@@ -110,7 +110,7 @@ class ExerciseSet(models.Model):
         return self.time.strftime("%H:%M:%S")
 
     def since_last_set(self):
-        return timezone.now() - self.time
+        return str(timezone.now() - self.time)[:7]
 
 
 class WorkoutDataCache(models.Model):
