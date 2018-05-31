@@ -1,10 +1,59 @@
 {% extends 'base_generic.html' %}
+{% load static %}
+{% block script_head %}
+  <script src="{% static 'sets/html5-knob/xknob.min.js' %}"></script>
+  <link href="{% static 'sets/html5-knob/xknob.min.css' %}" type="text/css" rel="stylesheet">
+  <script>
+    /** Adds the text of the button (which is + or - a number) to the current value, and evaluates it. This makes
+     * JS compute the statement of [old value +/- new value] and set the input field to the result.
+     *
+     * @param {HTMLButtonElement} element Element with value that will be added to the input field
+     * @param {string} inputId
+     */
+    function addNumberToInput(element, inputId) {
+      const input_field = document.getElementById(inputId);
+      const new_val = eval(input_field.value + element.textContent);
+      input_field.value = new_val < 0 ? 0 : new_val;
+      {# manually trigger the onchange event, this will set the value on the knob (if present) #}
+      if (input_field.onchange) {
+        input_field.onchange(null);
+      }
+    }
+  </script>
+{% endblock %}
 {% block content %}
-  <div>
-    <form action="{% url 'today:sets:update' object.pk %}" method="post">
+    <form method="post" action="{% url 'today:sets:update' object.id %}" class="pt-3">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button>Save</button>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">KGs</span>
+        </div>
+        <input type="number" step="0.1" class="form-control" placeholder="e.g. 30" name="kgs" id="kgs-input-field"
+               min="0"
+               value="{{ object.kgs }}">
+      </div>
+
+      <div class="text-center">
+        {% include 'sets/knob_partial.html' with input_field_id="kgs-input-field" initial_value=object.kgs %}
+      </div>
+      {% include 'sets/buttons_partial.html' with input_field_id="kgs-input-field" %}
+      {% if kgs_error %}
+        <div class="btn-danger text-white p-2 m-2">{{ kgs_error }}</div>
+      {% endif %}
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Reps</span>
+        </div>
+        <input type="number" class="form-control" placeholder="e.g. 12" name="reps" min="0" id="reps-input-field"
+               value="{{ object.reps }}">
+      </div>
+      {% include 'sets/buttons_partial.html' with input_field_id="reps-input-field" %}
+
+      {% if reps_error %}
+        <div class="btn-danger text-white p-2 m-2">{{ reps_error }}</div>
+      {% endif %}
+
+      <button class="btn btn-outline-dark btn-block">Save</button>
+      <input type="hidden" name="next" value="{{ next }}"/>
     </form>
-  </div>
 {% endblock %}
