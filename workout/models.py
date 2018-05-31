@@ -26,11 +26,9 @@ class Workout(models.Model):
         return self.workoutexercise_set.filter(exercise__muscle_group=self.secondary_muscle_group)
 
     def duration(self):
-        if not self.start_time:
+        if not self.start_time or not self.end_time:
             return ""
-        if not self.end_time:
-            return retrieve_time_from_timespan(timezone.now() - self.start_time)
-        return "Duration: {0}".format(retrieve_time_from_timespan(timezone.now() - self.start_time))
+        return "Duration: {0}".format(retrieve_time_from_timespan(self.end_time - self.start_time))
 
     class Meta:
         ordering = ["-date"]
