@@ -67,6 +67,9 @@ class WorkoutExercise(models.Model):
     # format: "30x12|30x10"
     old_sets = models.TextField(default="")
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return str(self.exercise)
 

@@ -15,8 +15,18 @@ class CompleteWorkout(generic.DetailView):
 
         if not w.completed:
             w.completed = True
+
+            # this is a special button that uses the time from the latest set
             if w.start_time:
-                w.end_time = timezone.now()
+                if request.POST.get("complete-with-latest-set", None):
+                    latest_set_time_available = getattr(w.workoutexercise_set.last().sets.last(), "time", None)
+                else:
+                    latest_set_time_available = None
+
+                if latest_set_time_available:
+                    w.end_time = latest_set_time_available
+                else:
+                    w.end_time = timezone.now()
 
             data_cache.compute_kcals(w, request.user)
         else:
