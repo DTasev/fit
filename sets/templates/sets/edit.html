@@ -81,7 +81,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for i, set in exercise.sets.order_by|enumerate %}
+        {% for i, set in exercise.sets.all|enumerate %}
           <tr>
             <td>{{ i }}</td>
             <td>{{ set.kgs }}</td>

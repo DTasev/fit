@@ -108,6 +108,9 @@ class ExerciseSet(models.Model):
     kgs = models.FloatField()
     time = models.DateTimeField(default=None, null=True)
 
+    class Meta:
+        ordering = ["id"]
+
     def pretty_time(self):
         return self.time.strftime("%H:%M:%S")
 
