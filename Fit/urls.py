@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('signup/', signup, name="signup"),
     path('profile/', include('user_profile.urls')),
+    path('api/v1/', include('api.urls'))
 ]

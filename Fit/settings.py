@@ -64,10 +64,15 @@ if HOST.PRODUCTION:
 else:
     SECRET_KEY = 'thisisarandomsecretkeyforthetestingenvironment'
 
-ALLOWED_HOSTS = ['fit.dtasev.me', 'localhost']
+ALLOWED_HOSTS = ['fit.dtasev.me']
 if HOST.DEVELOPMENT:
+    ALLOWED_HOSTS.append('localhost')
     ALLOWED_HOSTS.append('127.0.0.1')
+    # allow the localtunnel connection. Dot at the start allows every domain, essentially *.localtunnel.me
     ALLOWED_HOSTS.append('.localtunnel.me')
+    # allow for local android connection
+    ALLOWED_HOSTS.append('10.0.2.2')
+
     CORS_ORIGIN_WHITELIST = (
         '127.0.0.1:8001',
         'localhost:8001',
@@ -81,6 +86,7 @@ INSTALLED_APPS = [
     'sets.apps.SetsConfig',
     'today.apps.TodayConfig',
     'workout.apps.WorkoutConfig',
+    'rest_framework.authtoken',
     'rest_framework',
     'django_extensions',
     'corsheaders',
