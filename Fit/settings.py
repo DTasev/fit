@@ -72,6 +72,7 @@ if HOST.DEVELOPMENT:
     ALLOWED_HOSTS.append('.localtunnel.me')
     # allow for local android connection
     ALLOWED_HOSTS.append('10.0.2.2')
+    ALLOWED_HOSTS.append('192.168.1.2')
 
     CORS_ORIGIN_WHITELIST = (
         '127.0.0.1:8001',
