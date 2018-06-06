@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -41,7 +41,7 @@ class DeleteSet(generic.DeleteView):
         obj = super(DeleteSet, self).get_object()
         if not obj.workout_exercise.workout.user == self.request.user:
             # Raise 404 to not show the user that the entry exists
-            raise Http404
+            return HttpResponseForbidden()
 
         obj.delete()
         return HttpResponse('Entry deleted successfully')
@@ -83,8 +83,6 @@ class AddSetView(generic.DetailView):
         context = self.get_context_data(**kwargs)
         latest_set = self.object.sets.last()
 
-        #  TODO remove prev_reps_value and prev_kgs_value and just read them off of latest_set. make sure to pass it in the
-        #  POST method though!
         return render(request, 'sets/edit.html',
                       {**context, "exercise": self.object,
                        "latest_set": latest_set})
@@ -121,9 +119,12 @@ class AddSetView(generic.DetailView):
             workout.save()
 
         latest_set = self.object.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"], time=timezone.now())
-        return render(request, 'sets/edit.html',
-                      {**context, "exercise": self.object,
-                       "latest_set": latest_set})
+        # return render(request, 'sets/edit.html',
+        #               {**context, "exercise": self.object,
+        #                "latest_set": latest_set})
+        return redirect(
+            reverse('today:sets:add', kwargs={"pk": self.object.id}),
+            kwargs={**context, "exercise": self.object, "latest_set": latest_set})
 
 
 def view_readonly_set(request, pk):
