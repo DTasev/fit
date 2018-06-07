@@ -3,7 +3,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.views import WorkoutViewSet, AddNewSet
+from api.views import WorkoutViewSet, AddNewSet, DeleteSet
 
 app_name = 'api'
 
@@ -17,7 +17,8 @@ class DocsView(APIView):
         apidocs = {
             'auth-login-token': request.build_absolute_uri('auth-login-token/'),
             'today': request.build_absolute_uri('today/'),
-            "sets/add/":request.build_absolute_uri('sets/add/')
+            "sets/add/": request.build_absolute_uri('sets/add/'),
+            "sets/delete/": request.build_absolute_uri('sets/delete/'),
         }
         return Response(apidocs)
 
@@ -27,4 +28,5 @@ urlpatterns = [
     path('auth-login-token/', obtain_auth_token, name="auth-login-token"),
     path('today/', WorkoutViewSet.as_view({'get': 'retrieve'}), name="today"),
     path('sets/add/', AddNewSet.as_view({'post': 'create'}), name="sets-add"),
+    path('sets/delete/<int:pk>', DeleteSet.as_view({'post': 'destroy'}), name="sets-delete"),
 ]

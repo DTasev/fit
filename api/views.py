@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from api.serializers import WorkoutSerializer
-from workout.models import Workout, WorkoutExercise
+from workout.models import Workout, WorkoutExercise, ExerciseSet
 
 
 class WorkoutViewSet(viewsets.ViewSet):
@@ -26,7 +26,6 @@ class WorkoutViewSet(viewsets.ViewSet):
 class AddNewSet(viewsets.GenericViewSet):
     authentication_classes = (TokenAuthentication,)
 
-    # def perform_create(self, serializer):
     @permission_classes((IsAuthenticated,))
     def create(self, request):
         workout_exercise_id = int(request.data["workoutexercise_id"])
@@ -35,5 +34,22 @@ class AddNewSet(viewsets.GenericViewSet):
             new_set = workout_exercise.sets.create(kgs=float(request.data["new_set"]["kgs"]),
                                                    reps=int(request.data["new_set"]["reps"]))
             return Response(data={"new_set": {"id": new_set.id}}, status=201)
+        else:
+            return Response(data={"message": "You don't own this."}, status=403)
+
+
+class DeleteSet(viewsets.GenericViewSet):
+    authentication_classes = (TokenAuthentication,)
+
+    @permission_classes((IsAuthenticated,))
+    def destroy(self, request, pk=None):
+        try:
+            exercise_set = ExerciseSet.objects.get(pk=pk)
+        except ExerciseSet.DoesNotExist:
+            return Response(data={"message": "Not Found"}, status=404)
+
+        if exercise_set.workout_exercise.workout.user == request.user:
+            exercise_set.delete()
+            return Response(data={"message": "Deleted"}, status=200)
         else:
             return Response(data={"message": "You don't own this."}, status=403)
