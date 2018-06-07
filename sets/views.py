@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.views import generic
 from django.views.generic.edit import UpdateView
 
+from common.sets.add_set import add_set_routine
 from workout.models import WorkoutExercise, ExerciseSet
 
 
@@ -113,18 +114,16 @@ class AddSetView(generic.DetailView):
                            "prev_kgs_value": request.POST["kgs"]})
 
         # both kgs and reps are present, check if the workout is started, and if not, start it
-        workout = self.object.workout
-        if not workout.start_time:
-            workout.start_time = timezone.now()
-            workout.save()
-
-        latest_set = self.object.sets.create(kgs=request.POST["kgs"], reps=request.POST["reps"], time=timezone.now())
+        new_set = add_set_routine(self.object, request)
         # return render(request, 'sets/edit.html',
         #               {**context, "exercise": self.object,
         #                "latest_set": latest_set})
         return redirect(
             reverse('today:sets:add', kwargs={"pk": self.object.id}),
-            kwargs={**context, "exercise": self.object, "latest_set": latest_set})
+            kwargs={**context, "exercise": self.object, "latest_set": new_set})
+
+
+
 
 
 def view_readonly_set(request, pk):
