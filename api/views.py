@@ -9,6 +9,7 @@ from rest_framework.response import Response
 
 from api.serializers import WorkoutSerializer
 from common.sets.add_set import add_set_routine
+from common.sets.add_set_data import AddSetData
 from workout.models import Workout, WorkoutExercise, ExerciseSet
 
 
@@ -32,8 +33,9 @@ class AddNewSet(viewsets.GenericViewSet):
         workout_exercise_id = int(request.data["workoutexercise_id"])
         workout_exercise = WorkoutExercise.objects.get(pk=workout_exercise_id)
         if workout_exercise.workout.user == request.user:
-            new_set = add_set_routine(workout_exercise, request)
-            return Response(data={"new_set": {"id": new_set.id}}, status=201)
+            data = AddSetData(kgs=float(request.data["new_set"]["kgs"]), reps=int(request.data["new_set"]["reps"]))
+            new_set = add_set_routine(workout_exercise, data)
+            return Response(data={"new_set": {"id": new_set.id, "time": new_set.time}}, status=201)
         else:
             return Response(data={"message": "You don't own this."}, status=403)
 

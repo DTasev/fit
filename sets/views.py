@@ -1,11 +1,11 @@
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.utils import timezone
 from django.views import generic
 from django.views.generic.edit import UpdateView
 
-from common.sets.add_set import add_set_routine
+from common.sets.add_set import add_set_routine, get_last_exercise
+from common.sets.add_set_data import AddSetData
 from workout.models import WorkoutExercise, ExerciseSet
 
 
@@ -76,7 +76,7 @@ class AddSetView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(AddSetView, self).get_context_data(**kwargs)
-        context["exercise_from_last_time"] = self.get_last_exercise(self.object, self.request)
+        context["exercise_from_last_time"] = get_last_exercise(self.object, self.request.user)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -87,16 +87,6 @@ class AddSetView(generic.DetailView):
         return render(request, 'sets/edit.html',
                       {**context, "exercise": self.object,
                        "latest_set": latest_set})
-
-    def get_last_exercise(self, e, request):
-        past_exercises = WorkoutExercise.objects.filter(workout__user=request.user, exercise__name=e.exercise.name)
-        exercise_from_last_time = None
-        if len(past_exercises) > 1:
-            # get the data for the last time the exercise was performed
-            past_exercises = past_exercises[len(past_exercises) - 2]
-            if past_exercises.sets.count() != 0:
-                exercise_from_last_time = past_exercises
-        return exercise_from_last_time
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -114,16 +104,12 @@ class AddSetView(generic.DetailView):
                            "prev_kgs_value": request.POST["kgs"]})
 
         # both kgs and reps are present, check if the workout is started, and if not, start it
-        new_set = add_set_routine(self.object, request)
-        # return render(request, 'sets/edit.html',
-        #               {**context, "exercise": self.object,
-        #                "latest_set": latest_set})
+        data = AddSetData(request.POST["kgs"], request.POST["reps"])
+        new_set = add_set_routine(self.object, data)
+
         return redirect(
             reverse('today:sets:add', kwargs={"pk": self.object.id}),
             kwargs={**context, "exercise": self.object, "latest_set": new_set})
-
-
-
 
 
 def view_readonly_set(request, pk):
