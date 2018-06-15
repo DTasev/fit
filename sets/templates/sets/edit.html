@@ -129,7 +129,12 @@
     </div>
 
     <div class="text-center">
-      {% include 'sets/knob_partial.html' with input_field_id="kgs-input-field" initial_value=latest_set.kgs %}
+      <div class="d-inline-block">
+        {% include 'sets/knob_partial.html' with input_field_id="kgs-input-field" initial_value=latest_set.kgs %}
+      </div>
+      <div class="d-inline-block">
+        <button class="btn btn-primary my-auto">Repeat Kgs</button>
+      </div>
     </div>
     {% include 'sets/buttons_partial.html' with input_field_id="kgs-input-field" %}
     {% if kgs_error %}
