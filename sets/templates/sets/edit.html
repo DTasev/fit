@@ -128,13 +128,28 @@
              value="{{ latest_set.kgs }}">
     </div>
 
-    <div class="text-center">
-      <div class="d-inline-block">
+    <div class="text-center row">
+      <div class="col
+      {% if set_kg_difference %}
+      col-6
+        {% else %}
+        col-12
+        {% endif %}
+      ">
         {% include 'sets/knob_partial.html' with input_field_id="kgs-input-field" initial_value=latest_set.kgs %}
       </div>
-      <div class="d-inline-block">
-        <button class="btn btn-primary my-auto">Repeat Kgs</button>
-      </div>
+      {% if set_kg_difference %}
+        <div class="col col-6">
+          <button class="btn btn-outline-dark mt-3" type="button" onclick="addNumberToInput(this, 'kgs-input-field')">
+            {% if set_kg_difference > 0 %}
+              +{{ set_kg_difference }}
+            {% else %}
+              {#              a minus is not necessary on the integer, as it is added automatically when converted to string #}
+              {{ set_kg_difference }}
+            {% endif %}
+          </button>
+        </div>
+      {% endif %}
     </div>
     {% include 'sets/buttons_partial.html' with input_field_id="kgs-input-field" %}
     {% if kgs_error %}

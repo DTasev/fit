@@ -82,11 +82,22 @@ class AddSetView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(**kwargs)
-        latest_set = self.object.sets.last()
+        sets_so_far = self.object.sets.all()
+
+        # we can only perform this calculation if 2 or more sets are present
+        len_of_sets = len(sets_so_far)
+        if len_of_sets > 1:
+            latest_set = sets_so_far[len_of_sets - 1]
+            penultimate_set = sets_so_far[len_of_sets - 2]
+            set_kg_difference = latest_set.kgs - penultimate_set.kgs
+            context["set_kg_difference"] = set_kg_difference
+            context["latest_set"] = latest_set
+        elif len_of_sets == 1:
+            latest_set = sets_so_far[0]
+            context["latest_set"] = latest_set
 
         return render(request, 'sets/edit.html',
-                      {**context, "exercise": self.object,
-                       "latest_set": latest_set})
+                      {**context, "exercise": self.object})
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -96,12 +107,12 @@ class AddSetView(generic.DetailView):
         if request.POST["kgs"] == "":
             return render(request, 'sets/edit.html',
                           {**context, "exercise": self.object, "kgs_error": "KGs not specified",
-                           "prev_reps_value": request.POST["reps"]})
+                           "prev_reps_value": request.POST["reps"]}, status=400)
         # return error for missing reps
         elif request.POST["reps"] == "":
             return render(request, 'sets/edit.html',
                           {**context, "exercise": self.object, "reps_error": "Reps not specified",
-                           "prev_kgs_value": request.POST["kgs"]})
+                           "prev_kgs_value": request.POST["kgs"]}, status=400)
 
         # both kgs and reps are present, check if the workout is started, and if not, start it
         data = AddSetData(request.POST["kgs"], request.POST["reps"])
