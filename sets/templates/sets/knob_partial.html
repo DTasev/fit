@@ -6,7 +6,11 @@
     const knob = document.getElementById("kgs-knob-{{ input_field_id }}");
     const field = document.getElementById("{{ input_field_id }}");
     knob.addEventListener('input', () => field.value = knob.value);
-    knob.value = {{ initial_value }};
+    {% if initial_value %}
+      knob.value = {{ initial_value }};
+    {% else %}
+      knob.value = 0;
+    {% endif %}
     field.onchange = () => {
       knob.value = field.value;
     };
